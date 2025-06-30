@@ -1,0 +1,10 @@
+penna_airflow_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('DEV_BIGQUERY_PROJECT') }}"
+      dataset: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
+      threads: 4 # Must be a value of 1 or greater
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
