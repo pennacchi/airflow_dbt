@@ -17,7 +17,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 models:
+  penna_airflow_dbt:    
+    stage:
+      schema: stage
+      +materialized: table
+    
+    intermediate:
+      schema: intermediate
+      +materialized: ephemeral
+    
+    datamart:
+      schema: datamart
+      +materialized: table
+
+seeds:
   penna_airflow_dbt:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    raw:
+      schema: raw
