@@ -11,4 +11,6 @@ source venv/bin/activate
 # Atualizando repositório git
 
 # Configurando variáveis de ambiente
-source env/.env
+cd env
+export $(grep -v '^#' .env | xargs)
+cd ..
