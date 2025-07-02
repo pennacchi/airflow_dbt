@@ -32,5 +32,4 @@ models:
 
 seeds:
   penna_airflow_dbt:
-    raw:
-      schema: raw
+    schema: raw
