@@ -20,7 +20,7 @@ with source as (
     , units_in_stock
     , units_on_order
     , reorder_level
-  from {{ source('nortwind', 'products') }}
+  from {{ source('northwind', 'products') }}
 )
 
 select * from source

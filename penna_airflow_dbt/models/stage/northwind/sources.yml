@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: nortwind
-    description: "Nortwind data"
+  - name: northwind
+    description: "northwind data"
     schema: dbt_raw
     loader: bigquery
     tables:
