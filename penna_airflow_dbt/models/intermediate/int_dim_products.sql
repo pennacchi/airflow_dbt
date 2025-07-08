@@ -1,4 +1,4 @@
-with products as (
+with dim_products as (
   select 
       p.product_id
     , p.product_name  as product
@@ -17,6 +17,4 @@ with products as (
    left join {{ ref('categories') }} as c on p.category_id = c.category_id
    left join {{ ref('suppliers') }} as s on p.supplier_id = s.supplier_id
 )
-
-
-select * from products
+select * from dim_products

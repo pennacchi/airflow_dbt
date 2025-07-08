@@ -1,4 +1,4 @@
-with orders as (
+with fact_orders as (
   select 
       o.order_id
     , o.customer_id
@@ -46,3 +46,4 @@ with orders as (
   left join {{ ref('order_details') }} as od on o.order_id = od.order_id
   left join {{ ref('products') }} as p on od.product_id = p.product_id
 )
+select * from fact_orders
