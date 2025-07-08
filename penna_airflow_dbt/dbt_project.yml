@@ -19,8 +19,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   penna_airflow_dbt:    
     stage:
-      nortwind:
-        schema: stage_nortwind
+      northwind:
+        schema: stage_northwind
         +materialized: table
     
     intermediate:
@@ -37,5 +37,5 @@ seeds:
 
 snapshots:
   penna_airflow_dbt:
-    nortwind:
-      schema: stage_nortwind
+    northwind:
+      schema: stage_northwind
