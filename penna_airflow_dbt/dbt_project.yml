@@ -39,7 +39,11 @@ models:
 
 seeds:
   penna_airflow_dbt:
-    schema: raw
+    erp_northwind:
+      schema: raw_northwind
+    
+    erp_new_system:
+      schema: raw_erp_new_system
 
 snapshots:
   penna_airflow_dbt:
