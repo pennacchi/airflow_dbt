@@ -22,14 +22,20 @@ models:
       northwind:
         schema: stage_northwind
         +materialized: table
+        docs:
+          node_color: "#cd7f32"
     
     intermediate:
       schema: intermediate
       +materialized: ephemeral
+      +docs:
+        node_color: "#c0c0c0"
     
     datamart:
       schema: marts
       +materialized: table
+      +docs:
+        node_color: "#e6b530"
 
 seeds:
   penna_airflow_dbt:
