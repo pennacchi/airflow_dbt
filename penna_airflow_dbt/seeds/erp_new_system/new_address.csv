@@ -1,0 +1,11 @@
+address_id,ship_name,ship_address,ship_city,ship_region,ship_postal_code,ship_country
+2001,Ana Silva,123 Main Street,Springfield,IL,62704,USA
+2002,Carlos Santos,456 Oak Avenue,Pleasantville,NY,10570,USA
+2003,Beatriz Lima,789 Pine Lane,Riverside,CA,92507,USA
+2004,Roberto Costa,101 Maple Drive,Fairview,TX,75069,USA
+2005,João Pereira,202 Elm Street,Greenwood,IN,46142,USA
+2006,Fernanda Rocha,303 Birch Boulevard,Brighton,MA,02135,USA
+2007,Mariana Almeida,404 Cedar Court,Lakeview,FL,32801,USA
+2008,Pedro Gonçalves,505 Willow Way,Northwood,OH,43619,USA
+2009,Camila Soares,606 Cherry Road,Silverton,OR,97381,USA
+2010,Lucas Fernandes,707 Dogwood Street,Auburn,WA,98002,USA

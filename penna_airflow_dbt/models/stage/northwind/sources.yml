@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: northwind
     description: "northwind data"
-    schema: dbt_raw
+    schema: dbt_raw_northwind
     loader: bigquery
     tables:
       - name: categories

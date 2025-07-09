@@ -1,0 +1,5 @@
+employee_id,name,title,boss_id
+101,John Smith,Sales Manager,
+102,Mary Johnson,Senior Sales Analyst,101
+103,Peter Davis,Junior Sales Analyst,102
+104,Anna Brown,Sales Coordinator,101
