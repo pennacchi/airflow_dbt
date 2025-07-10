@@ -76,3 +76,4 @@ product_id,product_name,supplier_id,category_id,quantity_per_unit,unit_price,uni
 75,Rhönbräu Klosterbier,12,1,24 - 0.5 l bottles,7.75,125,0,25,0
 76,Lakkalikööri,23,1,500 ml,18,57,0,20,0
 77,Original Frankfurter grüne Soße,12,2,12 boxes,13,32,0,15,0
+78,Freight,0,9,1,0,1,1,0,0
