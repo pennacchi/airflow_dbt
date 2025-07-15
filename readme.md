@@ -8,6 +8,10 @@ Como a distribuição do Linux é a fedora, precisamos instalar via dnf
 python -m venv venv
 source venv/bin/activate
 
+# Instalando packages
+dbt deps
+
+
 # Configurando variáveis de ambiente
 cd env
 export $(grep -v '^#' .env | xargs)
@@ -18,8 +22,7 @@ export MINHA_VARIAVEL="meu_valor"
 com as variáveis no arquivo .env
 
 # Roadmap
-- Create stage/erp_new_system sources.yml
-- Create script stg_ for each source
+- Create intermediate place for erp_new_system (maybe)
 - Improve int_dim_customers with data from erp_new_sales_system
 - Improve int_dim_employees with data from erp_new_sales_system
 - Improve int_dim_products with data from erp_new_sales_system
@@ -27,6 +30,8 @@ com as variáveis no arquivo .env
 - Improve int_fact_orders with data from erp_new_sales_system
 
 # Tarefas executadas
+- Create stage/erp_new_system sources.yml ✅
+- Create script stg_ for each source ✅
 - Adjust freight value on fact_orders (it is using the entire freight value for each order_detail) ✅
 - Criar tabela de vendas e CRUD ✅
 - Criar tabela de detalhes da venda e CRUD ✅
