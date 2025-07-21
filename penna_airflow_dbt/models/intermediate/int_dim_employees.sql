@@ -1,6 +1,6 @@
 With dim_employees_erp_new_system as (
   select 
-      'erp_new_system||' || e.employee_id as employee_id
+      e.employee_id                       as employee_id
     , e.name                              as employee_name
     , e.title                             as title
     , cast(NULL as DATE)                  as birth_date
@@ -31,7 +31,7 @@ With dim_employees_erp_new_system as (
 )
 , dim_employees_northwind as (
   SELECT
-      'erp_new_system||' || eh.employee_id  as employee_id
+      eh.employee_id
     , eh.employee_name
     , e.title
     , e.birth_date

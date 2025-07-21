@@ -1,7 +1,7 @@
 with source as (
   select 
-      sale_id
-    , product_id
+      'erp_new_system||' || sale_id as sale_id
+    , 'erp_new_system||' || product_id as product_id
     , price_per_unit
     , qty
     , discount_percentage

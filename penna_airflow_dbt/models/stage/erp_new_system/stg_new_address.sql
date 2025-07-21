@@ -1,6 +1,6 @@
 with source as (
   select 
-      address_id
+      'erp_new_system||' || address_id as address_id
     , ship_name
     , ship_address
     , ship_city

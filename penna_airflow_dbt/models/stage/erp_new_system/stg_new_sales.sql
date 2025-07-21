@@ -1,8 +1,8 @@
 with source as (
   select 
-      sale_id
-    , customer_id
-    , salesperson_id
+      'erp_new_system||' || sale_id as sale_id
+    , 'erp_new_system||' || customer_id as customer_id
+    , 'erp_new_system||' || salesperson_id as salesperson_id
     , sale_date
     , freight_value
     , required_delivery_date

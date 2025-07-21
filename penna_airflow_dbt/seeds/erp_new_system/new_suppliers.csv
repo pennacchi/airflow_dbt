@@ -1,0 +1,11 @@
+supplier_id,supplier_name,contact_person,phone,email
+1,Tech Solutions Inc.,Ana Silva,(11) 98765-4321,ana.silva@techsolutions.com
+2,Global Peripherals,Carlos Mendes,(21) 99876-5432,carlos.mendes@globalperipherals.com
+3,Innovation Keyboards,Beatriz Costa,(31) 97654-3210,beatriz.costa@innovationkey.com
+4,Visual Displays Ltda.,João Pereira,(41) 96543-2109,joao.pereira@visualdisplays.com
+5,Connect & Go,Mariana Santos,(51) 95432-1098,mariana.santos@connectgo.com
+6,Audio Excellence,Fernando Lima,(61) 94321-0987,fernando.lima@audioexcellence.com
+7,Sound Waves Inc.,Juliana Rocha,(71) 93210-9876,juliana.rocha@soundwaves.com
+8,Data Storage Co.,Ricardo Oliveira,(81) 92109-8765,ricardo.oliveira@datastorage.com
+9,Cable Link Systems,Patrícia Almeida,(91) 91098-7654,patricia.almeida@cablelink.com
+10,Office Essentials,Gustavo Ferreira,(11) 90987-6543,gustavo.ferreira@officeessentials.com

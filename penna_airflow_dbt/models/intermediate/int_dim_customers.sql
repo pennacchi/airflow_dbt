@@ -1,6 +1,6 @@
 with dim_customer_northwind as (
   select 
-      'northwind||' || customer_id as customer_id
+      customer_id                      as customer_id
     , company_name                     as company_name
     , contact_name                     as contact_name
     , contact_title                    as contact_title
@@ -16,7 +16,7 @@ with dim_customer_northwind as (
 )
 , dim_customers_erp_new_system as (
   select 
-      'erp_new_system-||' || customer_id as customer_id
+      customer_id                      as customer_id
     , company_name                     as company_name
     , contact_name                     as contact_name
     , ''                               as contact_title

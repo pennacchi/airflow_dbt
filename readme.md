@@ -16,9 +16,8 @@ export MINHA_VARIAVEL="meu_valor"
 com as variáveis no arquivo .env
 
 # Roadmap
-- Improve int_dim_products with data from erp_new_sales_system
-- Improve int_dim_shippers with data from erp_new_sales_system
 - Improve int_fact_orders with data from erp_new_sales_system
+- Create standard on names of intermediate models. Example: on dim_Customers, instead of Company_Name should be Customer_Name
 - Validate schema.yml of northwind stage
 - Create schema.yml of erp_new_system stage
 - Create schema.yml of intermediate
@@ -26,6 +25,8 @@ com as variáveis no arquivo .env
 - Create datamart final tables
 
 # Tarefas executadas
+- Improve int_dim_products with data from erp_new_sales_system ✅
+- Improve int_dim_shippers with data from erp_new_sales_system ✅
 - Improve int_dim_customers with data from erp_new_sales_system ✅
 - Improve int_dim_employees with data from erp_new_sales_system ✅
 - Create stage/erp_new_system sources.yml ✅
