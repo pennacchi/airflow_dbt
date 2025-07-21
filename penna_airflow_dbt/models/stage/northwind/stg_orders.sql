@@ -1,8 +1,8 @@
 with source as (
   select 
-      order_id
-    , customer_id
-    , employee_id
+      'northwind||' || order_id as order_id
+    , 'northwind||' || customer_id as customer_id
+    , 'northwind||' || employee_id as employee_id
     , order_date
     , freight
     , required_date

@@ -1,4 +1,4 @@
-WITH RECURSIVE EmployeeHierarchy AS (
+WITH RECURSIVE tmp_EmployeeHierarchy AS (
   -- Higher hierarchy employee (no one above them)
   SELECT
     employee_id,
@@ -7,7 +7,7 @@ WITH RECURSIVE EmployeeHierarchy AS (
     CAST(e.first_name || ' ' || e.last_name AS STRING) as hierarchy_path,
     1 as hierarchy_level
   FROM
-    {{ ref('stg_employees') }} e 
+    {{ source('northwind', 'employees') }} e 
   WHERE reports_to IS NULL
 
   UNION ALL
@@ -22,8 +22,17 @@ WITH RECURSIVE EmployeeHierarchy AS (
     eh.hierarchy_path || ' -> ' || e.first_name || ' '|| e.last_name as hierarchy_path,
     eh.hierarchy_level + 1 as hierarchy_level 
   FROM
-    {{ ref('stg_employees') }} e
+    {{ source('northwind', 'employees') }} e
   INNER JOIN
-    EmployeeHierarchy eh ON e.reports_to = eh.employee_id
+    tmp_EmployeeHierarchy eh ON e.reports_to = eh.employee_id
+)
+, EmployeeHierarchy as (
+  SELECT
+    'northwind||' || employee_id as employee_id,
+    'northwind||' || reports_to as reports_to,
+    employee_name,
+    hierarchy_path,
+    hierarchy_level
+  FROM tmp_EmployeeHierarchy
 )
 SELECT * FROM EmployeeHierarchy

@@ -1,5 +1,9 @@
 with source as (
-  select * from {{ source('northwind', 'shippers') }}
+  select 
+      'northwind||' || shipper_id as shipper_id
+    , company_name
+    , phone
+  from {{ source('northwind', 'shippers') }}
 )
 
 select * from source

@@ -27,6 +27,17 @@ sources:
           - name: ship_country
             description: "Country of the ship place"
 
+      - name: new_categories
+        description: "Categories of the products. Example: Eletrônicos, Periféricos de Computador, etc."
+        columns:
+          - name: category_id
+            description: "Primary key of the category"
+            tests:
+              - unique
+              - not_null
+          - name: name
+            description: "Name of the category"
+
       - name: new_customers
         description: "Customers of the new system. Example: Central Market, Hot Bread Bakery."
         columns:
@@ -65,6 +76,10 @@ sources:
               - not_null
           - name: name
             description: "Name of the product"
+          - name: category_id
+            description: "Foreign key of the category (new_categories)"
+          - name : supplier_id
+            description: "Foreign key of the supplier (new_suppliers)"
           
       - name: new_sales
         description: ""
@@ -109,3 +124,19 @@ sources:
           - name: deleted
             description: "Flag if the item was deleted of the sale"
           
+      - name: new_suppliers
+        description: "Suppliers of the company. Example: Supplier A, Supplier B, etc."
+        columns:
+          - name: supplier_id
+            description: "Primary key of the supplier"
+            tests:
+              - unique
+              - not_null
+          - name: supplier_name
+            description: "Name of the supplier"
+          - name: contact_person
+            description: "Name of the contact person of the supplier"
+          - name: phone
+            description: "Phone number of the supplier"
+          - name: email
+            description: "Email of the supplier"

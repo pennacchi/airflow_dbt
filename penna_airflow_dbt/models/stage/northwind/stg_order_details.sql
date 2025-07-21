@@ -1,5 +1,10 @@
 with source as (
-  select * from {{ source('northwind', 'order_details') }}
+  select 
+      'northwind||' || order_id as order_id
+    , product_id
+    , unit_price
+    , quantity
+    , discount
+  from {{ source('northwind', 'order_details') }}
 )
-
 select * from source
