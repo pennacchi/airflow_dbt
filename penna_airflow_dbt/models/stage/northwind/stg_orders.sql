@@ -3,6 +3,7 @@ with source as (
       'northwind||' || order_id as order_id
     , 'northwind||' || customer_id as customer_id
     , 'northwind||' || employee_id as employee_id
+    , 'northwind||' || ship_via    as ship_via_id
     , order_date
     , freight
     , required_date
@@ -27,7 +28,7 @@ with source as (
         then DATE_DIFF(shipped_date, order_date, DAY)
         else NULL
       end as shipping_time
-    , ship_via
+    
     , ship_name
     , ship_address
     , ship_city

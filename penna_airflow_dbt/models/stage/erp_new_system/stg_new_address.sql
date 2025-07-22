@@ -5,9 +5,8 @@ with source as (
     , ship_address
     , ship_city
     , ship_region
-    , ship_postal_code
+    , cast(ship_postal_code as string) as ship_postal_code 
     , ship_country
   from {{ source('erp_new_system', 'new_address') }}
 ) 
-
 select * from source

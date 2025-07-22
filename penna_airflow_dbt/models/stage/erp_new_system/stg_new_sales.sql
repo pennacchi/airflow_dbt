@@ -1,8 +1,9 @@
 with source as (
   select 
-      'erp_new_system||' || sale_id as sale_id
-    , 'erp_new_system||' || customer_id as customer_id
-    , 'erp_new_system||' || salesperson_id as salesperson_id
+      'erp_new_system||' || sale_id         as sale_id
+    , 'erp_new_system||' || customer_id     as customer_id
+    , 'erp_new_system||' || salesperson_id  as salesperson_id
+    , 'erp_new_system||' || ship_address_id as ship_address_id
     , sale_date
     , freight_value
     , required_delivery_date
@@ -28,7 +29,7 @@ with source as (
         else NULL
       end as shipping_time
     , ship_via
-    , ship_address_id
+    
   from {{ source('erp_new_system', 'new_sales') }}
 )
 select * from source
