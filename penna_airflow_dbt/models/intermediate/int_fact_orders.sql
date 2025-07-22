@@ -1,8 +1,10 @@
 /*
+--------------------------------------------------------------------------------------------------
 To create the fact_orders table, we need to join the order_resume table with the order_details table.
 This join would create a replication of our freight column for each order_detail row.
 We decided to create each freight as a product.
 So we first create our order_and_details table and then add the freight as a product.
+--------------------------------------------------------------------------------------------------
 */
 
 with order_and_details as (

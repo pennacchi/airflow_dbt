@@ -210,6 +210,16 @@ sources:
           - name: region_description
             description: "Description of the region"
 
+      - name: ship_via
+        description: "Companies responsable for shipping. e.g.: Speedy Express, United Package, etc."
+        columns:
+          - name: ship_via_id
+            description: "Primary key of the ship via"
+            tests:
+              - unique
+              - not_null
+          - name: description
+            description: "Description of the ship via. e.g: Speedy Express, United Package, etc."
       - name: shippers
         description: "Companies responsable for shipping. e.g.: Speedy Express, United Package, etc."
         columns:
