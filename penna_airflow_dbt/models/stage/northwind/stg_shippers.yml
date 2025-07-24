@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_shippers
+    description: "Companies responsable for shipping. e.g.: Speedy Express, United Package, etc."
+    columns:
+      - name: shipper_id
+        description: "Primary key of the shipper, created as 'northwind||' concatenated with the original shipper_id."
+      - name: company_name
+        description: "Name of the shipper"
+      - name: phone
+        description: "Phone of the shipper"

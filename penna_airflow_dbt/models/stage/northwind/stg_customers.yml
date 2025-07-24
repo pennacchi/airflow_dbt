@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Customers. e.g.: Cactus Comidas para llevar, Rancho grande, etc."
+    columns:
+      - name: customer_id
+        description: "Primary key of the customer, created as 'northwind||' concatenated with the original customer_id."
+      - name: company_name
+        description: "Name of the company"
+      - name: contact_name
+        description: "Name of the contact person"
+      - name: contact_title
+        description: "Title of the contact person. e.g.: Sales Representative, Sales Agent, Owner, etc."
+      - name: address
+        description: "Address of the company. Not standard (written text)."
+      - name: city
+        description: "City of the company. They looks like the same names everytime."
+      - name: region
+        description: "Region of the company (in some cases it is the UF of the state other cases it is full name of state). e.g: RJ, SP, Québec, etc. There are some null values."
+      - name: postal_code
+        description: "Postal code of the company"
+      - name: country
+        description: "Country of the company"
+      - name: phone
+        description: "Phone of the company"
+      - name: fax
+        description: "Fax of the company"

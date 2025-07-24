@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_employee_territories
+    description: "Relationship between employees and territories"
+    columns:
+      - name: employee_id
+        description: "Foreign key of the employee, created as 'northwind||' concatenated with the original employee_id."
+      - name: territory_id
+        description: "Foreign key of the territory, created as 'northwind||' concatenated with the original territory_id."

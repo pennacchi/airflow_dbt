@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_new_sales_details
+    description: ""
+    columns:
+      - name: sale_id
+        data_type: string
+        description: "Primary key of the sale. Value composed as 'erp_new_system||' + original sale_id."
+      - name: product_id
+        data_type: string
+        description: "Foreign key to the product. Value composed as 'erp_new_system||' + original product_id."
+      - name: price_per_unit
+        data_type: float64
+        description: "Unit price of the product in the sale."
+      - name: qty
+        data_type: int64
+        description: "Quantity of products sold."
+      - name: discount_percentage
+        data_type: float64
+        description: "Discount percentage applied to the sale."
+      - name: deleted
+        data_type: boolean
+        description: "Indicates if the record was deleted (soft delete)."

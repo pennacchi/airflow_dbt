@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_us_states
+    description: "United States states. e.g.: Alabama, Alaska, Arizona, etc."
+    columns:
+      - name: state_id
+        description: "Primary key of the state, created as 'northwind||' concatenated with the original state_id."
+      - name: state_name
+        description: "Name of the state"
+      - name: state_abbr
+        description: "Abbreviation of the state"
+      - name: state_region
+        description: "Region of the state. e.g.: south, north, west, etc."

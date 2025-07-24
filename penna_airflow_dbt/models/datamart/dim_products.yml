@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Product dimension for analytics, sourced from int_dim_products."
+    columns:
+      - name: product_id
+        description: "Primary key of the product."
+      - name: product
+        description: "Product name."
+      - name: category_id
+        description: "Foreign key to the product category."
+      - name: product_category
+        description: "Name of the product category."
+      - name: product_category_description
+        description: "Description of the product category."
+      - name: supplier_id
+        description: "Foreign key to the supplier."
+      - name: product_supplier
+        description: "Name of the supplier."
+      - name: product_quantity_per_unit
+        description: "Quantity per unit (e.g., 10 boxes x 20 bags)."
+      - name: product_unit_price
+        description: "Unit price of the product."
+      - name: product_units_in_stock
+        description: "Units of product in stock."
+      - name: product_units_on_order
+        description: "Units of product on order."
+      - name: product_reorder_level
+        description: "Reorder level for the product."
+      - name: product_discontinued
+        description: "Indicates if the product is discontinued."
+      - name: product_source
+        description: "Source system for the record: 'northwind' or 'erp_new_system'."

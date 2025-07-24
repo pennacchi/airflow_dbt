@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_dim_shippers
+    description: "Shipper dimension from Northwind source."
+    columns:
+      - name: shipper_id
+        description: "Primary key of the shipper."
+      - name: shipper
+        description: "Name of the shipping company."
+      - name: shipper_phone
+        description: "Phone number of the shipping company."
+      - name: shipper_source
+        description: "Source system for the record: 'northwind'."

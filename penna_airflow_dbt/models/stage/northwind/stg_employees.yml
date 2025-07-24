@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_employees
+    description: "Employees. e.g.: Nancy Davolio, Andrew Fuller, Janet Leverling, etc."
+    columns:
+      - name: employee_id
+        description: "Primary key of the employee, created as 'northwind||' concatenated with the original employee_id."
+      - name: last_name
+        description: "Last name of the employee"
+      - name: first_name
+        description: "First name of the employee"
+      - name: title
+        description: "Title of the employee. e.g.: Sales Representative, Sales Agent, Owner, etc."
+      - name: title_of_courtesy
+        description: "Title of courtesy of the employee. e.g.: Ms., Mr., Mrs., Dr., etc."
+      - name: birth_date
+        description: "Birth date of the employee"
+      - name: hire_date
+        description: "Hire date of the employee"
+      - name: address
+        description: "Address of the employee. Not standard (written text)."
+      - name: city
+        description: "City of the employee. They looks like the same names everytime."
+      - name: region
+        description: "Region of the employee (state). There are some null values."
+      - name: postal_code
+        description: "Postal code of the employee"
+      - name: country
+        description: "Country of the employee"
+      - name: home_phone
+        description: "Home phone of the employee"
+      - name: extension
+        description: "Extension of the employee"
+      - name: notes
+        description: "Notes of the employee"
+      - name: reports_to
+        description: "Reports to of the employee"

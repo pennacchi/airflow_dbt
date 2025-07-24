@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_new_suppliers
+    description: ""
+    columns:
+      - name: supplier_id
+        data_type: string
+        description: "Primary key of the supplier. Value composed as 'erp_new_system||' + original supplier_id."
+      - name: supplier_name
+        data_type: string
+        description: "Name of the supplier."
+      - name: contact_person
+        data_type: string
+        description: "Main contact person at the supplier."
+      - name: phone
+        data_type: string
+        description: "Supplier's contact phone number."
+      - name: email
+        data_type: string
+        description: "Supplier's contact email address."

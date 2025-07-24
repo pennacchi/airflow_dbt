@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fact_orders
+    description: "Fact table for orders, sourced from int_fact_orders."
+    columns:
+      - name: order_id
+        description: "Primary key of the order."
+      - name: customer_id
+        description: "Foreign key to the customer. "
+      - name: salesperson_id
+        description: "Foreign key to the salesperson/employee."
+      - name: order_date
+        description: "Date when the order was placed."
+      - name: product_id
+        description: "Foreign key to the product."
+      - name: unit_price
+        description: "Unit price of the product in the order."
+      - name: quantity
+        description: "Quantity of the product in the order."
+      - name: product_discount_percentage
+        description: "Discount percentage applied to the product."
+      - name: product_sales_revenue
+        description: "Gross sales revenue for the product."
+      - name: product_discount_value
+        description: "Discount value for the product."
+      - name: gross_revenue
+        description: "Gross revenue for the order line."
+      - name: net_revenue
+        description: "Net revenue for the order line."
+      - name: required_date
+        description: "Date requested for delivery."
+      - name: shipped_date
+        description: "Date when the order was shipped."
+      - name: shipped_flag
+        description: "Indicates if the order was shipped."
+      - name: delayed_flag
+        description: "Indicates if the order was delivered late."
+      - name: delayed_days
+        description: "Number of days the delivery was delayed."
+      - name: shipping_time
+        description: "Total shipping time in days."
+      - name: ship_via
+        description: "Shipping company or method used for delivery."
+      - name: ship_name
+        description: "Name of the shipping location."
+      - name: ship_address
+        description: "Street address of the shipping location."
+      - name: ship_city
+        description: "City of the shipping location."
+      - name: ship_region
+        description: "Region or state of the shipping location."
+      - name: ship_postal_code
+        description: "Postal code of the shipping location."
+      - name: ship_country
+        description: "Country of the shipping location."
