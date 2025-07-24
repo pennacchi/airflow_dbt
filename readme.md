@@ -16,14 +16,16 @@ export MINHA_VARIAVEL="meu_valor"
 com as variáveis no arquivo .env
 
 # Roadmap
-- Create standard on names of intermediate models. Example: on dim_Customers, instead of Company_Name should be Customer_Name
-- Validate schema.yml of northwind stage
-- Create schema.yml of erp_new_system stage
-- Create schema.yml of intermediate
 - Create schema.yml of datamart
 - Create datamart final tables
+- Create airflow enviroment
+- Create a dag on airflow that insert a new sale and execute dbt project
 
 # Tarefas executadas
+- Create standard on names of intermediate models. Example: on dim_Customers, instead of Company_Name should be Customer_Name ✅
+- Validate schema.yml of northwind stage ✅
+- Create schema.yml of erp_new_system stage ✅
+- Create schema.yml of intermediate ✅
 - Improve int_fact_orders with data from erp_new_sales_system ✅
 - Improve int_dim_products with data from erp_new_sales_system ✅
 - Improve int_dim_shippers with data from erp_new_sales_system ✅

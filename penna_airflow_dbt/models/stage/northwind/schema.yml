@@ -83,6 +83,19 @@ models:
       - name: reports_to
         description: "Reports to of the employee"
 
+  - name: stg_employee_hierarchy
+    description: "Employee hierarchy generated recursively from stg_employees."
+    columns:
+      - name: employee_id
+        description: "Primary key of the employee"
+      - name: reports_to
+        description: "Id of the the person this employee reports to. This is related to employee_id at this table (recursive relationship)"
+      - name: employee_name
+        description: "Name of the employee"
+      - name: hierarchy_path
+        description: "Path of the employee from the higher hierarchy to the lower. e.g.: Nancy Davolio -> Andrew Fuller -> Janet Leverling"
+      - name: hierarchy_level
+        description: "Level of the employee in the hierarchy. e.g.: Nancy Davolio is level 1, Andrew Fuller is level 2, Janet Leverling is level 3"
   - name: stg_order_details
     description: "Detail of each order like which products, unit price, qty, was bought, etc."
     columns:
@@ -106,14 +119,14 @@ models:
         description: "Foreign key of the customer"
       - name: employee_id
         description: "Foreign key of the employee"
+      - name: ship_via_id
+        description: "Foreign key of the ship via"
       - name: order_date
         description: "Date of the order"
       - name: required_date
         description: "Required date of the order"
       - name: shipped_date
         description: "Shipped date of the order"
-      - name: ship_via
-        description: "Code of the ship via. e.g.: 1, 2, 3, 4, etc."
       - name: freight
         description: "Freight value of the order"
       - name: ship_name
@@ -220,17 +233,3 @@ models:
         description: "Abbreviation of the state"
       - name: state_region
         description: "Region of the state. e.g.: south, north, west, etc."
-
-  - name: stg_employee_hierarchy
-    description: "Employee hierarchy generated recursively from stg_employees."
-    columns:
-      - name: employee_id
-        description: "Primary key of the employee"
-      - name: reports_to
-        description: "Employee to whom this employee reports"
-      - name: employee_name
-        description: "Full name of the employee"
-      - name: hierarchy_path
-        description: "Path from top hierarchy to this employee"
-      - name: hierarchy_level
-        description: "Level in the hierarchy"
