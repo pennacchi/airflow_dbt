@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Products. e.g.: Chai, Chang, Aniseed Syrup, etc."
+    columns:
+      - name: product_id
+        description: "Primary key of the product, created as 'northwind||' concatenated with the original product_id."
+      - name: product_name
+        description: "Name of the product"
+      - name: supplier_id
+        description: "Foreign key of the supplier, created as 'northwind||' concatenated with the original supplier_id."
+      - name: category_id
+        description: "Foreign key of the category, created as 'northwind||' concatenated with the original category_id."
+      - name: quantity_per_unit
+        description: "Description of quantity per unit of the product. e.g.: 10 boxes x 20 bags, 24 - 12 oz bottles, etc."
+      - name: unit_price
+        description: "Unit price of the product"
+      - name: units_in_stock
+        description: "Units in stock of the product"
+      - name: units_on_order
+        description: "Units on order of the product"
+      - name: reorder_level
+        description: "Reorder level of the product"
+      - name: discontinued
+        description: "Discontinued flag of the product"

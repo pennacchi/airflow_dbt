@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_employee_hierarchy
+    description: "Employee hierarchy generated recursively from stg_employees."
+    columns:
+      - name: employee_id
+        description: "Primary key of the employee, created as 'northwind||' concatenated with the original employee_id."
+      - name: reports_to
+        description: "Id of the the person this employee reports to. This is related to employee_id at this table (recursive relationship)"
+      - name: employee_name
+        description: "Name of the employee"
+      - name: hierarchy_path
+        description: "Path of the employee from the higher hierarchy to the lower. e.g.: Nancy Davolio -> Andrew Fuller -> Janet Leverling"
+      - name: hierarchy_level
+        description: "Level of the employee in the hierarchy. e.g.: Nancy Davolio is level 1, Andrew Fuller is level 2, Janet Leverling is level 3"

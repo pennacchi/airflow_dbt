@@ -1,27 +1,33 @@
-# Criando virtual enviroment
+# Create virtual enviroment
 python -m venv venv
 source venv/bin/activate
 
-# Instalando packages
+
+# Install dependecies
+pip install -r requirements.txt
+
+
+# Intalling dbt packages
 dbt deps
 
 
-# Configurando variáveis de ambiente
+# Setting up enviroment variables (option 1)
 cd env
 export $(grep -v '^#' .env | xargs)
 cd ..
 
-ou nano ~/.bashrc
+# Setting up enviroment variables (option 2)
+nano ~/.bashrc
 export MINHA_VARIAVEL="meu_valor"
 com as variáveis no arquivo .env
 
 # Roadmap
-- Create schema.yml of datamart
-- Create datamart final tables
 - Create airflow enviroment
 - Create a dag on airflow that insert a new sale and execute dbt project
 
-# Tarefas executadas
+# Executed tasks
+- Create schema.yml of datamart ✅
+- Create datamart final tables ✅
 - Create standard on names of intermediate models. Example: on dim_Customers, instead of Company_Name should be Customer_Name ✅
 - Validate schema.yml of northwind stage ✅
 - Create schema.yml of erp_new_system stage ✅

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Order information like the customer, sales person, date, etc."
+    columns:
+      - name: order_id
+        description: "Primary key of the order, created as 'northwind||' concatenated with the original order_id."
+      - name: customer_id
+        description: "Foreign key of the customer, created as 'northwind||' concatenated with the original order_id"
+      - name: employee_id
+        description: "Foreign key of the employee, created as 'northwind||' concatenated with the original order_id"
+      - name: ship_via_id
+        description: "Foreign key of the ship via, created as 'northwind||' concatenated with the original order_id"
+      - name: order_date
+        description: "Date of the order"
+      - name: required_date
+        description: "Required date of the order"
+      - name: shipped_date
+        description: "Shipped date of the order"
+      - name: freight
+        description: "Freight value of the order"
+      - name: ship_name
+        description: "Name of the ship"
+      - name: ship_address
+        description: "Address of the ship. Not standard (written text)."
+      - name: ship_city
+        description: "City of the ship. They looks like the same names everytime."
+      - name: ship_region
+        description: "Region of the ship (state). There are some null values."
+      - name: ship_postal_code
+        description: "Postal code of the ship"
+      - name: ship_country
+        description: "Country of the ship"

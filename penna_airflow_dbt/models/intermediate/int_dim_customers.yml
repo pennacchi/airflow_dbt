@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: int_dim_customers
+    description: "Consolidated customer dimension from Northwind and ERP New System sources."
+    columns:
+      - name: customer_id
+        description: "Primary key of the customer."
+      - name: customer
+        description: "Customer's company name."
+      - name: customer_contact_name
+        description: "Main contact person for the customer."
+      - name: customer_contact_title
+        description: "Title of the contact person (e.g., Sales Representative, Owner)."
+      - name: customer_address
+        description: "Customer's address."
+      - name: customer_city
+        description: "Customer's city."
+      - name: customer_region
+        description: "Customer's region or state."
+      - name: customer_postal_code
+        description: "Customer's postal code."
+      - name: customer_country
+        description: "Customer's country."
+      - name: customer_phone
+        description: "Customer's phone number."
+      - name: customer_fax
+        description: "Customer's fax number."
+      - name: source
+        description: "Source system for the record: 'northwind' or 'erp_new_system'."

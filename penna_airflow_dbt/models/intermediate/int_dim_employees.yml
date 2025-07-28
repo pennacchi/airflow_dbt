@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_dim_employees
+    description: "Consolidated employee dimension from Northwind and ERP New System sources."
+    columns:
+      - name: employee_id
+        description: "Primary key of the employee."
+      - name: employee
+        description: "Employee's full name."
+      - name: employee_title
+        description: "Job title of the employee."
+      - name: employee_birth_date
+        description: "Employee's date of birth."
+      - name: employee_hire_date
+        description: "Date the employee was hired."
+      - name: employee_reports_to
+        description: "ID of the employee's immediate supervisor."
+      - name: employee_hierarchy_level
+        description: "Hierarchy level of the employee."
+      - name: employee_superior_level_1
+        description: "Name of the top-level superior in the hierarchy."
+      - name: employee_superior_level_2
+        description: "Name of the second-level superior in the hierarchy."
+      - name: employee_superior_level_3
+        description: "Name of the third-level superior in the hierarchy."
+      - name: employee_superior_level_4
+        description: "Name of the fourth-level superior in the hierarchy."
+      - name: hierarchy_path
+        description: "Full hierarchical path from the top to this employee."
+      - name: employee_source
+        description: "Source system for the record: 'northwind' or 'erp_new_system'."

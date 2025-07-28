@@ -32,7 +32,7 @@ with dim_products_northwind as (
     , CAST(NULL as INT64)   as product_units_in_stock
     , CAST(NULL as INT64)   as product_units_on_order
     , CAST(NULL as INT64)   as product_reorder_level
-    , 0 as discontinued     as product_discontinued
+    , 0                     as product_discontinued
     , 'erp_new_system'      as product_source
    from {{ ref('stg_new_products') }} as p
    left join {{ ref('stg_new_categories') }} as c on p.category_id = c.category_id
