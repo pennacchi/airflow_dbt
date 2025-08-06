@@ -1,8 +1,8 @@
-name: 'penna_airflow_dbt'
+name: 'dbt_project'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'penna_airflow_dbt'
+profile: 'dbt_project'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -17,7 +17,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 models:
-  penna_airflow_dbt:    
+  dbt_project:    
     stage:
       northwind:
         schema: stage_northwind
@@ -43,7 +43,7 @@ models:
         node_color: "#e6b530"
 
 seeds:
-  penna_airflow_dbt:
+  dbt_project:
     erp_northwind:
       schema: raw_northwind
     
@@ -51,6 +51,6 @@ seeds:
       schema: raw_erp_new_system
 
 snapshots:
-  penna_airflow_dbt:
+  dbt_project:
     northwind:
       schema: stage_northwind

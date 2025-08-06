@@ -45,7 +45,7 @@ with order_and_details_erp_new_system as (
     , s.customer_id               as customer_id
     , s.salesperson_id            as salesperson_id
     , s.sale_date                 as order_date
-    , 'erp_new_system||21'        as product_id
+    , 'erp_new_system||P021'      as product_id
     , s.freight_value             as unit_price
     , 1                           as quantity
     , 0                           as product_discount_percentage

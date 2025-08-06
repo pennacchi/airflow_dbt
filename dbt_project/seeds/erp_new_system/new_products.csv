@@ -1,0 +1,22 @@
+product_id,name,category_id,supplier_id
+P001,Laptop,1,1
+P002,Mouse,2,2
+P003,Keyboard,2,3
+P004,Monitor,1,4
+P005,Webcam,3,5
+P006,Microphone,3,6
+P007,Headphones,3,7
+P008,USB Drive,4,8
+P009,External Hard Drive,4,9
+P010,Printer,5,10
+P011,Mouse Pad,2,2
+P012,Speaker Set,3,7
+P013,HDMI Cable,4,8
+P014,Ethernet Cable,4,9
+P015,Desk Lamp,6,10
+P016,Batteries (AA),7,1
+P017,Wireless Router,1,4
+P018,Software License,8,3
+P019,Cleaning Kit,9,5
+P020,Ergonomic Chair,10,6
+P021,Freight,11,11

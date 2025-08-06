@@ -1,0 +1,20 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account-json
+      project: "{{ env_var('DEV_BIGQUERY_PROJECT') }}"
+      dataset: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
+      threads: 4 # Must be a value of 1 or greater
+      keyfile_json:
+        type: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_TYPE') }}"
+        project_id: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_PROJECT_ID') }}"
+        private_key_id: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY_ID') }}"
+        private_key: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY') }}"
+        client_email: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_CLIENT_EMAIL') }}"
+        client_id: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_CLIENT_ID') }}"
+        auth_uri: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_AUTH_URI') }}"
+        token_uri: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_TOKEN_URI') }}"
+        auth_provider_x509_cert_url: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL') }}"
+        client_x509_cert_url: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL') }}"
