@@ -2,3 +2,5 @@ venv
 venv/
 logs
 env/
+airflow/.env
+airflow/dags/__pycache__
