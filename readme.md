@@ -52,9 +52,9 @@ docker compose up -d
 cd ..
 
 # Run project
-`There are 2 DAGs:`
-  - `"append_new_sales": add new random data to csvs on dbt_project/seeds/erp_new_system.`
-  - `"run_ransformations": will create/update all schemas (stage, intermediate, and datamart) of dataset`
+There are 2 DAGs:
+  - "append_new_sales": add new random data to csvs on dbt_project/seeds/erp_new_system.
+  - "run_ransformations": will create/update all schemas (stage, intermediate, and datamart) of dataset
 
 
 ## Do you want to execute dbt models locally?
