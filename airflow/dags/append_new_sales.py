@@ -3,6 +3,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.operators.bash import BashOperator
+from docker.types import Mount
 import csv
 import random
 from datetime import datetime, timedelta
@@ -37,7 +38,7 @@ def generate_new_sale_details(sale_id, n_products=2):
         details_rows.append([
             sale_id, product_id, price_per_unit, qty, discount_percentage, deleted
         ])
-    # Escreve as linhas no arquivo de detalhes
+    # Write new lines on csv
     with open(CSV_PATH_NEW_SALES_DETAILS, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow('')
@@ -55,7 +56,7 @@ def generate_new_sale(last_id):
     ship_via = random.choice(["Correios", "Transportadora", "FedEx", "DHL"])
     freight_value = round(random.uniform(15, 80), 2)
     ship_address_id = random.randint(2000, 2010)
-    # Gera detalhes da venda ao criar a venda
+    # Generate sales details when creatin a new sale
     num_products = random.randint(1, 5)
     generate_new_sale_details(sale_id, num_products)
     return [
@@ -99,9 +100,9 @@ with DAG(
     dag_id='append_new_sales_csv',
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
-    schedule_interval=None,  # manual trigger
+    schedule_interval=None,
     catchup=False,
-    tags=['csv', 'sales'],
+    tags=['csv', 'sales', 'dbt', 'seeds'],
 ) as dag:
 
     append_new_sales_task = PythonOperator(
@@ -121,6 +122,10 @@ with DAG(
         op_args=[CSV_PATH_NEW_SALES_DETAILS]
     )
 
+    dag_folder = os.path.dirname(os.path.abspath(__file__))
+    dbt_project_path = os.path.join(dag_folder, '..', '..','dbt_project')
+
+
     dbt_seeds = DockerOperator(
         task_id="dbt_seeds",
         image="dbt_image", 
@@ -128,11 +133,19 @@ with DAG(
         api_version="auto",
         auto_remove=True,
         command="dbt seed --profiles-dir .", 
+        mounts=[
+            Mount(
+                source=os.path.join(os.environ.get('PROJECT_PATH'),"..","dbt_project"),
+                target='/usr/src/dbt_project',
+                type='bind'
+            )
+        ],
         docker_url="tcp://docker-proxy:2375",
         environment=os.environ,
         network_mode="airflow_default",
         mount_tmp_dir=False,
     )
+
 
     append_new_sales_task \
         >> remove_empty_lines_new_sales_task \
