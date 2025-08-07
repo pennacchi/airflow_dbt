@@ -41,8 +41,12 @@ jobs:
 
     - name: Run dbt debug
       run: |
-        dbt debug --target prod --vars "schema_id: $SCHEMA_ID"
+        dbt debug --target pr --vars "schema_id: $SCHEMA_ID"
 
     - name: Run dbt deps
       run: |
-        dbt deps --target prod --vars "schema_id: $SCHEMA_ID"
+        dbt deps --target pr --vars "schema_id: $SCHEMA_ID"
+    
+    - name: Run dbt build
+      run: |
+        dbt build --target pr --vars "schema_id: $SCHEMA_ID"
