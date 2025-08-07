@@ -3,11 +3,6 @@
   - Docker and Docker Compose
 
 
-# Create virtual enviroment
-python -m venv venv
-source venv/bin/activate
-
-
 # Setup bigquery
 Go to BigQuery and create a project and dataset. My project is 'penna-airflow-dbt"' and dataset is 'dbt'.Still on BigQuery generate a service account and download your project keys. Go to airflow folder:
 
@@ -17,15 +12,14 @@ Replace variables values with the respective values of the json you download on 
 
 cd ..
 
+
 # Adjust airflow user on linux
-Get your user id or create a user for airflow. Run command:
+Get your user id or create a user for airflow. This step is necessary because airflow will
+update csv files on dbt_project/seeds, so run command:
 
 id -u
-cd airflow
 
-With the result, update the variable AIRFLOW_UID on .env file
-
-cd ..
+With the result, update the variable AIRFLOW_UID on airflow/.env file
 
 
 # Set up a dbt image
@@ -35,6 +29,7 @@ cd dbt_project
 docker build -t dbt_image .
 
 *Run command 'docker images' to check if the image was created.
+
 
 # Set up airflow containers
 This will create the containers that will run airflow. Run command:
@@ -51,13 +46,22 @@ cd airflow
 docker compose up -d
 cd ..
 
+
 # Run project
 There are 2 DAGs:
-  - "append_new_sales": add new random data to csvs on dbt_project/seeds/erp_new_system.
-  - "run_ransformations": will create/update all schemas (stage, intermediate, and datamart) of dataset
+  - "append_new_sales": this dag will add new random data to:
+    - dbt_project/seeds/erp_new_system/new_sales.csv
+    - dbt_project/seeds/erp_new_system/new_sales_details.csv
+  - "run_ransformations": this dag will create/update all project schemas (stage, intermediate, and datamart).
 
 
 ## Do you want to execute dbt models locally?
+
+
+# Create virtual enviroment
+python -m venv venv
+source venv/bin/activate
+
 
 # Install dependecies
 We only need on our enviroment dbt libraries (not necessary airflow). Run command:
@@ -70,6 +74,7 @@ Run command:
 
 dbt deps
 
+
 # Setting up envirorment variables
 This will set your environment variables (linux) temporally. Run command:
 
@@ -77,6 +82,19 @@ cd airflow
 set -a; source .env; set +a
 cd ..
 
+
+# Execute dbt commands
+With these configurations above, you are all set to run dbt commands. Go dbt_project: 
+
+cd dbt_project
+
+Now run dbt commands you want:
+
+dbt seed
+
+
+
+## Roadmap
 
 # To do
 - Create CI/CD
