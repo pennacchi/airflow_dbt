@@ -71,19 +71,20 @@ Run command:
 dbt deps
 
 # Setting up envirorment variables
-This will set your environment variables (linux). Run command:
+This will set your environment variables (linux) temporally. Run command:
 
 cd airflow
 set -a; source .env; set +a
 cd ..
 
+
 # To do
-- Create a dag to run the workflow
 - Create CI/CD
 - Create an EC2, install and run the entire project
 - Publish the project on github, linkedin, and telegram
 
 # Done
+- Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
 - Delete folder utils from this folder and docker ✅
 - Create a example file of the .env files ✅
 - I got an error of permission on airflow accessing new_sales_details.csv. Maybe it is because I removed the "AIRFLOW_UID" ✅
