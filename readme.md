@@ -97,7 +97,7 @@ dbt seed
 ## Roadmap
 
 # To do
-- Create CI/CD
+- Create CI/CD (I am having an error with the variable 'PROD_BIGQUERY_PROJECT' on github secrets. I don't know why, but it is not avaible)
 - Create an EC2, install and run the entire project
 - Publish the project on github, linkedin, and telegram
 
