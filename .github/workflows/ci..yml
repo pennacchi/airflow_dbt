@@ -45,12 +45,12 @@ jobs:
     
     - name: Run dbt debug
       run: |
-        dbt debug --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt debug --profiles-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
 
     - name: Run dbt deps
       run: |
-        dbt deps --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt deps --profiles-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
     
     - name: Run dbt build
       run: |
-        dbt build --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt build --profiles-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
