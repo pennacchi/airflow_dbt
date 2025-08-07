@@ -39,14 +39,18 @@ jobs:
       id: schema_id
       run: echo "SCHEMA_ID=${{ github.event.pull_request.number }}__${{ github.sha }}" >> $GITHUB_ENV
 
+    - name: list files
+      run: |
+        ls
+    
     - name: Run dbt debug
       run: |
-        dbt debug --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt debug --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
 
     - name: Run dbt deps
       run: |
-        dbt deps --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt deps --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
     
     - name: Run dbt build
       run: |
-        dbt build --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt build --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
