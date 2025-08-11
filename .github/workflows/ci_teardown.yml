@@ -1,0 +1,48 @@
+name: CI schema teardown on PR close
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  CI_TEARDOWN_job:
+    runs-on: ubuntu-latest
+
+    env:
+      DEV_BIGQUERY_PROJECT: ${{ secrets.DEV_BIGQUERY_PROJECT }}
+      DEV_BIGQUERY_DATASET: ${{ secrets.DEV_BIGQUERY_DATASET }}
+      PROD_BIGQUERY_PROJECT: ${{ secrets.PROD_BIGQUERY_PROJECT }}
+      PROD_BIGQUERY_DATASET: ${{ secrets.PROD_BIGQUERY_DATASET }}
+      GOOGLE_APPLICATION_CREDENTIALS_TYPE: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TYPE }}
+      GOOGLE_APPLICATION_CREDENTIALS_PROJECT_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PROJECT_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_EMAIL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_EMAIL }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_AUTH_URI: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_AUTH_URI }}
+      GOOGLE_APPLICATION_CREDENTIALS_TOKEN_URI: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TOKEN_URI }}
+      GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL }}
+  
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Get PR NUM
+      id: schema_id
+      run: echo "PR_NUM=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+    - name: dbt deps
+      run: dbt deps --profiles-dir dbt_project --project-dir dbt_project
+
+    - name: drop PR schemas
+      run: dbt run-operation drop_pr_staging_schemas --args "{'project_id'":" '${DEV_BIGQUERY_PROJECT}', 'PR_number'":" '${PR_NUM}' }" --profiles-dir dbt_project --project-dir dbt_project
