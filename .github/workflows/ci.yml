@@ -55,4 +55,4 @@ jobs:
     
     - name: Run dbt build
       run: |
-        dbt build --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt run -s stg_new_address --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
