@@ -1,0 +1,70 @@
+name: CD_action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  CD_job:
+    runs-on: ubuntu-latest
+
+    env:
+      DEV_BIGQUERY_PROJECT: ${{ secrets.DEV_BIGQUERY_PROJECT }}
+      DEV_BIGQUERY_DATASET: ${{ secrets.DEV_BIGQUERY_DATASET }}
+      PROD_BIGQUERY_PROJECT: ${{ secrets.PROD_BIGQUERY_PROJECT }}
+      PROD_BIGQUERY_DATASET: ${{ secrets.PROD_BIGQUERY_DATASET }}
+      GOOGLE_APPLICATION_CREDENTIALS_TYPE: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TYPE }}
+      GOOGLE_APPLICATION_CREDENTIALS_PROJECT_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PROJECT_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_PRIVATE_KEY }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_EMAIL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_EMAIL }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_ID: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_ID }}
+      GOOGLE_APPLICATION_CREDENTIALS_AUTH_URI: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_AUTH_URI }}
+      GOOGLE_APPLICATION_CREDENTIALS_TOKEN_URI: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TOKEN_URI }}
+      GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL }}
+      GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL }}
+  
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: pip install -r dbt-requirements.txt
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0.4.3
+      with:
+        credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.DBT_ENV_SECRET_PROJECT_ID }}
+
+    - name: Copy manifest.json from Google Cloud Storage
+      run: |
+        gsutil cp gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/manifest.json ./ || echo "Manifest not found"
+
+    - name: Run dbt debug
+      run: dbt debug --target prod --profiles-dir dbt_project --project-dir dbt_project
+
+    - name: Run dbt deps
+      run: dbt deps --target prod --profiles-dir dbt_project --project-dir dbt_project
+
+    - name: Run dbt build
+      run: |
+        if [ -f "./manifest.json" ]; then
+          dbt build -s 'state:modified+' --state ./ --target prod --profiles-dir dbt_project --project-dir dbt_project
+        else
+          dbt build --target prod --profiles-dir dbt_project --project-dir dbt_project
+        fi
+
+    - name: Copy new manifest.json to Google Cloud Storage
+      run: |
+        gsutil cp dbt_project/target/manifest.json gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/
