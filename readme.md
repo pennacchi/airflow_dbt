@@ -1,26 +1,23 @@
-## Project Overview
-This project implements a data transformation process using dbt (Data Build Tool) on Google BigQuery, with orchestration handled by Apache Airflow. The main goal is to merge two distinct datasets to enable comprehensive sales analysis.
+# Project Overview
+This project implements a data transformation process using dbt (Data Build Tool) on Google BigQuery, with orchestration handled by Apache Airflow. The main goal is to merge information from two distinct systems with multiple tables to enable analysis from both sources at the same time.
 
 ![ETL Overview](files/etl_overview.png)
 
-# Data Sources
+## Data Sources
 All our raw data come from csv located on dbt_project/seeds. Each source is on following folders:
   - erp_northwind: sales of northwind.
   - ero_new_system: fictional dataset created for this project.
 
-# Data Flow
+## Data Flow
 Most of our data are static files excepct by these two files below. It is possible to generate random data executing the dag append_new_sales. Each execution will add new rows to each csv and execute dbt_seeds command.
   - dbt_project/seeds/erp_new_system/new_sales.csv
   - dbt_project/seeds/erp_new_system/new_sales.details.csv
-
-## Set up
 
 # Requirements
   - Python 3.9
   - Docker and Docker Compose
 
-
-# Setup bigquery
+## Setup bigquery
 Go to BigQuery and create a project and dataset. Still on BigQuery generate a service account and download your project keys. Go to airflow folder:
 
 cd airflow
@@ -30,16 +27,16 @@ Replace variables values with the respective values of the json you download on 
 cd ..
 
 
-# Adjust airflow user on linux
+## Adjust airflow user on linux
 Get your user id or create a user for airflow. This step is necessary because airflow will
-update csv files on dbt_project/seeds, so run command:
+update csv files on dbt_project/seeds and need the correct permissions to do it, so run command:
 
 id -u
 
 With the result, update the variable AIRFLOW_UID on airflow/.env file
 
 
-# Set up a dbt image
+## Set up dbt image
 This creates an image that will generate a temporary container everytime we run a task on airflow related to dbt. Run commands:
 
 cd dbt_project
@@ -48,7 +45,7 @@ docker build -t dbt_image .
 *Run command 'docker images' to check if the image was created.
 
 
-# Set up airflow containers
+## Set up airflow containers
 This will create the containers that will run airflow. Run command:
 
 cd airflow
@@ -56,7 +53,7 @@ docker compose up airflow-dbt
 cd ..
 
 
-## Starting the project
+# Starting the project
 This will start running each container of airflow. Run commands:
 
 cd airflow
@@ -70,23 +67,21 @@ There are 2 DAGs:
   - "run_ransformations": this dag will create/update all project schemas (stage, intermediate, and datamart).
 
 
-## Do you want to execute dbt models locally?
+# Do you want to execute dbt models locally?
 
 
-# Create virtual enviroment
+## Create virtual enviroment
 python -m venv venv
 source venv/bin/activate
 
 
-# Install dependecies
+## Install dependecies
 We only need on our enviroment dbt libraries (not necessary airflow). Run command:
 
 pip install -r requirements.txt
 
 
-# Install dbt packages
-Run command:
-
+## Install dbt packages
 dbt deps
 
 
@@ -99,7 +94,7 @@ cd ..
 
 
 # Execute dbt commands
-With these configurations above, you are all set to run dbt commands. Go dbt_project: 
+With configurations above, you are all set to run dbt commands. Go dbt_project: 
 
 cd dbt_project
 
@@ -116,6 +111,7 @@ dbt seed
 - Publish the project on github, linkedin, and telegram
 
 # Done
+- Improve readme
 - Create CD process
 - Create CI anc CI_Teardown
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
@@ -139,9 +135,9 @@ dbt seed
 - Create stage/erp_new_system sources.yml ✅
 - Create script stg_ for each source ✅
 - Adjust freight value on fact_orders (it is using the entire freight value for each order_detail) ✅
-- Criar tabela de vendas e CRUD ✅
-- Criar tabela de detalhes da venda e CRUD ✅
-- Criar tabela de produtos e CRUD ✅
-- Criar tabela de vendedores e CRUD ✅
-- Criar dim_customer ✅
-- Criar dim_shipper ✅
+- Create sales table and CRUD ✅
+- Create sales details table and CRUD ✅
+- Create products table and CRUD ✅
+- Create sellers table and CRUD ✅
+- Create dim_customer ✅
+- Create dim_shipper ✅
