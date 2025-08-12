@@ -97,11 +97,12 @@ dbt seed
 ## Roadmap
 
 # To do
-- Create CI/CD (I am having an error with the variable 'PROD_BIGQUERY_PROJECT' on github secrets. I don't know why, but it is not avaible)
+- Create CD process (I had an error on pip install -r dbt-requirements.txt (I fixed to correct name, but I need to run again the job))
 - Create an EC2, install and run the entire project
 - Publish the project on github, linkedin, and telegram
 
 # Done
+- Create CI anc CI_Teardown
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
 - Delete folder utils from this folder and docker ✅
 - Create a example file of the .env files ✅

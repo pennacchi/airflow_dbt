@@ -1,9 +1,10 @@
 name: CI schema teardown on PR close
 
 on:
-  pull_request:
-    types:
-      - closed
+  # pull_request:
+  #   types:
+  #     - closed
+  workflow_dispatch:
 
 jobs:
   CI_TEARDOWN_job:
