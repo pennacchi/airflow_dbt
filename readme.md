@@ -1,10 +1,27 @@
+## Project Overview
+This project implements a data transformation process using dbt (Data Build Tool) on Google BigQuery, with orchestration handled by Apache Airflow. The main goal is to merge two distinct datasets to enable comprehensive sales analysis.
+
+![ETL Overview](files/etl_overview.png)
+
+# Data Sources
+All our raw data come from csv located on dbt_project/seeds. Each source is on following folders:
+  - erp_northwind: sales of northwind.
+  - ero_new_system: fictional dataset created for this project.
+
+# Data Flow
+Most of our data are static files excepct by these two files below. It is possible to generate random data executing the dag append_new_sales. Each execution will add new rows to each csv and execute dbt_seeds command.
+  - dbt_project/seeds/erp_new_system/new_sales.csv
+  - dbt_project/seeds/erp_new_system/new_sales.details.csv
+
+## Set up
+
 # Requirements
   - Python 3.9
   - Docker and Docker Compose
 
 
 # Setup bigquery
-Go to BigQuery and create a project and dataset. My project is 'penna-airflow-dbt"' and dataset is 'dbt'.Still on BigQuery generate a service account and download your project keys. Go to airflow folder:
+Go to BigQuery and create a project and dataset. Still on BigQuery generate a service account and download your project keys. Go to airflow folder:
 
 cd airflow
 
@@ -23,7 +40,7 @@ With the result, update the variable AIRFLOW_UID on airflow/.env file
 
 
 # Set up a dbt image
-This create an image that will generate a temporary container everytime we run a task on airflow related to dbt. Run commands:
+This creates an image that will generate a temporary container everytime we run a task on airflow related to dbt. Run commands:
 
 cd dbt_project
 docker build -t dbt_image .
@@ -47,11 +64,9 @@ docker compose up -d
 cd ..
 
 
-# Run project
+# Our DAGs
 There are 2 DAGs:
-  - "append_new_sales": this dag will add new random data to:
-    - dbt_project/seeds/erp_new_system/new_sales.csv
-    - dbt_project/seeds/erp_new_system/new_sales_details.csv
+  - "append_new_sales": this dag will add new random data to new_sales.csv and new_sales_details.csv on dbt_project/seeds/erp_new_system and execute dbt seeds to add all new data to our raw table.
   - "run_ransformations": this dag will create/update all project schemas (stage, intermediate, and datamart).
 
 
@@ -97,11 +112,11 @@ dbt seed
 ## Roadmap
 
 # To do
-- Create CD process (I had an error on pip install -r dbt-requirements.txt (I fixed to correct name, but I need to run again the job))
 - Create an EC2, install and run the entire project
 - Publish the project on github, linkedin, and telegram
 
 # Done
+- Create CD process
 - Create CI anc CI_Teardown
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
 - Delete folder utils from this folder and docker ✅
