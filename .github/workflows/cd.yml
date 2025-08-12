@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+      GCLOUD_STORAGE_PATH_MANIFEST: ${{ secrets.GCLOUD_STORAGE_PATH_MANIFEST }}
       DEV_BIGQUERY_PROJECT: ${{ secrets.DEV_BIGQUERY_PROJECT }}
       DEV_BIGQUERY_DATASET: ${{ secrets.DEV_BIGQUERY_DATASET }}
       PROD_BIGQUERY_PROJECT: ${{ secrets.PROD_BIGQUERY_PROJECT }}
@@ -45,7 +47,7 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        project_id: ${{ secrets.DBT_ENV_SECRET_PROJECT_ID }}
+        project_id: ${{ secrets.PROD_BIGQUERY_DATASET }}
 
     - name: Copy manifest.json from Google Cloud Storage
       run: |
