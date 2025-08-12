@@ -47,7 +47,7 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        project_id: ${{ secrets.PROD_BIGQUERY_DATASET }}
+        project_id: ${{ secrets.PROD_BIGQUERY_PROJECT }}
 
     - name: Copy manifest.json from Google Cloud Storage
       run: |
