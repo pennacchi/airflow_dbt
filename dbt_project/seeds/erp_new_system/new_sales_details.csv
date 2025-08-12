@@ -426,3 +426,5 @@ sale_id,product_id,price_per_unit,qty,discount_percentage,deleted
 1140,P010,85.72,2,0,FALSE
 1140,P005,22.86,5,0,FALSE
 1141,P016,54.39,4,0,FALSE
+1142,P007,13.06,3,0.1,FALSE
+1143,P019,41.85,1,0.1,FALSE
