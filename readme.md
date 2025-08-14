@@ -1,7 +1,7 @@
 # Project Overview
 This project implements a data transformation process using dbt (Data Build Tool) on Google BigQuery, with orchestration handled by Apache Airflow. The main goal is to merge information from two distinct systems with multiple tables to enable analysis from both sources at the same time.
 
-![ETL Overview](files/etl_overview.png)
+![ETL Overview](.github/src/etl_overview.png)
 
 ## Data Sources
 All our raw data come from csv located on dbt_project/seeds. Each source is on following folders:
@@ -13,18 +13,20 @@ Most of our data are static files excepct by these two files below. It is possib
   - dbt_project/seeds/erp_new_system/new_sales.csv
   - dbt_project/seeds/erp_new_system/new_sales.details.csv
 
+After executing dag append_new_sales, you can execute dag run_ransformations. This dag will update all of our bigquery pipeline areas (stage, intermediate and datamart).
+
+
+## CI/CD Process
+To keep enable continous integrations of our code and continuous deployment, I am using github actions to make incremental validation (only checking what was changed from previous deployment (manifest.json) comparing with the new deployment).
+
+
 # Requirements
   - Python 3.9
   - Docker and Docker Compose
 
 ## Setup bigquery
-Go to BigQuery and create a project and dataset. Still on BigQuery generate a service account and download your project keys. Go to airflow folder:
-
-cd airflow
-
-Replace variables values with the respective values of the json you download on the file 'Sample.env' and rename it to '.env'.`
-
-cd ..
+Go to BigQuery and create a project and dataset. Still on BigQuery generate a service account and download your project keys. Go to airflow folder and replace variables on the file 'Sample.env' with the respective values of the json you download from bigquery service account .json.
+Rename the file Sample.env to '.env'. This file will be used by airflow and dbt to connect with bigquery and run airflow dags.
 
 
 ## Adjust airflow user on linux
