@@ -67,7 +67,6 @@ with order_and_details_erp_new_system as (
     , a.ship_postal_code
     , a.ship_country
   from {{ ref('stg_new_sales') }} as s
-  left join {{ ref('stg_new_sales_details') }} as sd on sd.sale_id = s.sale_id
   left join {{ ref("stg_new_address") }} as a on s.ship_address_id = a.address_id
 )
 /*
