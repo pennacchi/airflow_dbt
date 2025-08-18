@@ -105,16 +105,13 @@ dbt seed
 
 ## Roadmap
 
-# To do
-- Create CI to update code on production environment
-- Publish the project on github, linkedin, and telegram
-
 # Done
 - Improve distinction between dev and prod datasets ✅
 - Create an EC2, install and run the entire project ✅
 - Remove dbt deps ✅
 - Review transformation of fact_orders ✅
 - Improve readme ✅
+- Create CD to update code on production environment
 - Create CD process ✅
 - Create CI anc CI_Teardown ✅
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
