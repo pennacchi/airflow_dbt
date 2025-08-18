@@ -4,3 +4,4 @@ logs
 env/
 airflow/.env
 airflow/dags/__pycache__
+presentation.md

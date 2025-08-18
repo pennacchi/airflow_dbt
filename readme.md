@@ -64,6 +64,7 @@ cd ..
 
 
 # Our DAGs
+Tou can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD and then access our DAGs.
 There are 2 DAGs:
   - "append_new_sales": this dag will add new random data to new_sales.csv and new_sales_details.csv on dbt_project/seeds/erp_new_system and execute dbt seeds to add all new data to our raw table.
   - "run_ransformations": this dag will create/update all project schemas (stage, intermediate, and datamart).
@@ -104,16 +105,13 @@ dbt seed
 
 ## Roadmap
 
-# To do
-- Create CI to update code on production environment
-- Publish the project on github, linkedin, and telegram
-
 # Done
 - Improve distinction between dev and prod datasets ✅
 - Create an EC2, install and run the entire project ✅
 - Remove dbt deps ✅
 - Review transformation of fact_orders ✅
 - Improve readme ✅
+- Create CD to update code on production environment
 - Create CD process ✅
 - Create CI anc CI_Teardown ✅
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
