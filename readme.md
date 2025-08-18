@@ -83,10 +83,6 @@ We only need on our enviroment dbt libraries (not necessary airflow). Run comman
 pip install -r requirements.txt
 
 
-## Install dbt packages
-dbt deps
-
-
 # Setting up envirorment variables
 This will set your environment variables (linux) temporally. Run command:
 
@@ -110,12 +106,15 @@ dbt seed
 
 # To do
 - Create an EC2, install and run the entire project
+- Create CI to update code on production environment
 - Publish the project on github, linkedin, and telegram
 
 # Done
-- Improve readme
-- Create CD process
-- Create CI anc CI_Teardown
+- Remove dbt deps ✅
+- Review transformation of fact_orders ✅
+- Improve readme ✅
+- Create CD process ✅
+- Create CI anc CI_Teardown ✅
 - Create a dag to run the workflow (verify if i am saving data on other database from bigquery instead of previous database) ✅
 - Delete folder utils from this folder and docker ✅
 - Create a example file of the .env files ✅
