@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: erp_new_system
     description: "New system of sales"
-    schema: dbt_raw_erp_new_system
+    schema: raw_erp_new_system
     loader: bigquery
     tables:
       - name: new_address

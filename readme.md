@@ -105,11 +105,12 @@ dbt seed
 ## Roadmap
 
 # To do
-- Create an EC2, install and run the entire project
 - Create CI to update code on production environment
 - Publish the project on github, linkedin, and telegram
 
 # Done
+- Improve distinction between dev and prod datasets ✅
+- Create an EC2, install and run the entire project ✅
 - Remove dbt deps ✅
 - Review transformation of fact_orders ✅
 - Improve readme ✅
