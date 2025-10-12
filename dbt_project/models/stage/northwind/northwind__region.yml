@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: northwind__region
+    description: "Region information. E.g: Eastern, Western, etc."
+    columns:
+      - name: region_id
+        description: "Primary key of the region, created as 'northwind||' concatenated with the original region_id."
+      - name: region_description
+        description: "Description of the region"

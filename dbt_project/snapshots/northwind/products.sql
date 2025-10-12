@@ -20,7 +20,7 @@ with source as (
     , units_in_stock
     , units_on_order
     , reorder_level
-  from {{ source('northwind', 'products') }}
+  from {{ source('northwind', 'aws_s3__erp_northwind__products') }}
 )
 
 select * from source

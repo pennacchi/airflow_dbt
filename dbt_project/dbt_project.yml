@@ -20,15 +20,11 @@ models:
   dbt_project:    
     stage:
       northwind:
-        schema: stage_northwind
+        schema: stage
         +materialized: table
-        docs:
-          node_color: "#cd7f32"
       erp_new_system:
-        schema: stage_erp_new_system
+        schema: stage
         +materialized: table
-        docs:
-          node_color: "#cd7f32"
     
     intermediate:
       schema: intermediate

@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: erp_new_system__products
+    description: ""
+    columns:
+      - name: product_id
+        data_type: string
+        description: "Primary key of the product. Value composed as 'erp_new_system||' + original product_id."
+      - name: name
+        data_type: string
+        description: "Name of the product."
+      - name: category_id
+        data_type: string
+        description: "Foreign key to the product category. Value composed as 'erp_new_system||' + original category_id."
+      - name: supplier_id
+        data_type: string
+        description: "Foreign key to the supplier. Value composed as 'erp_new_system||' + original supplier_id."

@@ -1,0 +1,39 @@
+file_type: csv
+file_path: erp_northwind/employees.csv
+columns:
+  - name: employee_id
+    type: integer
+  - name: last_name
+    type: text
+  - name: first_name
+    type: text
+  - name: title
+    type: text
+  - name: title_of_courtesy
+    type: text
+  - name: birth_date
+    type: date
+  - name: hire_date
+    type: date
+  - name: address
+    type: text
+  - name: city
+    type: text
+  - name: region
+    type: text
+  - name: postal_code
+    type: text
+  - name: country
+    type: text
+  - name: home_phone
+    type: text
+  - name: extension
+    type: text
+  - name: photo
+    type: text
+  - name: notes
+    type: text
+  - name: reports_to
+    type: integer
+  - name: photo_path
+    type: text

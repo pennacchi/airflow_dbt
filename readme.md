@@ -4,16 +4,24 @@ This project implements a data transformation process using dbt (Data Build Tool
 ![ETL Overview](.github/src/etl_overview.png)
 
 ## Data Sources
-All our raw data come from csv located on dbt_project/seeds. Each source is on following folders:
+![Data Sources](.github/src/data_sources.png)
+All our raw data come from csv located on s3 (you can reproduce that by coping all csv files on dbt_project/seeds and storing into a bucket on S3). Each folder is related to a different system:
   - erp_northwind: sales of northwind.
   - ero_new_system: fictional dataset created for this project.
 
-## Data Flow
-Most of our data are static files excepct by these two files below. It is possible to generate random data executing the dag append_new_sales. Each execution will add new rows to each csv and execute dbt_seeds command.
-  - dbt_project/seeds/erp_new_system/new_sales.csv
-  - dbt_project/seeds/erp_new_system/new_sales.details.csv
 
-After executing dag append_new_sales, you can execute dag run_ransformations. This dag will update all of our bigquery pipeline areas (stage, intermediate and datamart).
+## Data Flow
+![DAG Ingest and Transform](.github/src/dag_ingest_and_transform.png)
+Our extractions are orchestrated by Airflow. The "ingest_and_transform" is our main DAG. It executes the file ingestion:
+ - Get a list of files to be extracted from the folder: airflow/dags/data/sources. This folder will have metadata of each file to be extracted
+ - Extract data from csv files on S3
+ - Validate data types and mandatory columns
+ - Store into BigQuery
+
+![DAG Ingest and Transform Python Script](.github/src/dag_ingest_and_transform_python_script.png)
+![Task and output bigquery](.github/src/task_and_output_bigquery.png)
+
+This DAG also execute the transformations running transformations on stage, intermediate and marts area. It also runs tests.
 
 
 ## CI/CD Process
@@ -24,9 +32,14 @@ To keep enable continous integrations of our code and continuous deployment, I a
   - Python 3.9
   - Docker and Docker Compose
 
+
 ## Setup bigquery
 Go to BigQuery and create a project and dataset. Still on BigQuery generate a service account and download your project keys. Go to airflow folder and replace variables on the file 'Sample.env' with the respective values of the json you download from bigquery service account .json.
 Rename the file Sample.env to '.env'. This file will be used by airflow and dbt to connect with bigquery and run airflow dags.
+
+## Setup AWS S3
+Go to S3 on AWS, create a bucket and create an IAM user with reading permission to this bucket.
+Go to the '.env' and insert your credentials.
 
 
 ## Adjust airflow user on linux
@@ -64,10 +77,9 @@ cd ..
 
 
 # Our DAGs
-Tou can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD and then access our DAGs.
-There are 2 DAGs:
-  - "append_new_sales": this dag will add new random data to new_sales.csv and new_sales_details.csv on dbt_project/seeds/erp_new_system and execute dbt seeds to add all new data to our raw table.
-  - "run_ransformations": this dag will create/update all project schemas (stage, intermediate, and datamart).
+You can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD and then access our DAG.
+There is one main DAG:
+  - ingest_and_transform
 
 
 # Do you want to execute dbt models locally?
@@ -106,6 +118,7 @@ dbt seed
 ## Roadmap
 
 # Done
+- Create extraction form S3 ✅
 - Improve distinction between dev and prod datasets ✅
 - Create an EC2, install and run the entire project ✅
 - Remove dbt deps ✅
@@ -133,7 +146,7 @@ dbt seed
 - Improve int_dim_customers with data from erp_new_sales_system ✅
 - Improve int_dim_employees with data from erp_new_sales_system ✅
 - Create stage/erp_new_system sources.yml ✅
-- Create script stg_ for each source ✅
+- Create script northwind__ for each source ✅
 - Adjust freight value on fact_orders (it is using the entire freight value for each order_detail) ✅
 - Create sales table and CRUD ✅
 - Create sales details table and CRUD ✅

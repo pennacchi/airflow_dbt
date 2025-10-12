@@ -1,0 +1,15 @@
+file_type: csv
+file_path: erp_new_system/new_sales_details.csv
+columns:
+  - name: sale_id
+    type: integer
+  - name: product_id
+    type: string
+  - name: price_per_unit
+    type: number
+  - name: qty
+    type: integer
+  - name: discount_percentage
+    type: number
+  - name: deleted
+    type: boolean

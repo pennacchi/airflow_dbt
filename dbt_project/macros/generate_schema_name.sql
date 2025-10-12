@@ -1,6 +1,6 @@
 {% macro generate_schema_name(custom_schema_name, node) -%}
 
-    {%- set default_schema = target.schema -%}
+    {%- set default_schema = target.name -%}
     
     {# Lógica para SEDS: ignora o target e usa apenas o nome customizado #}
     {%- if node.resource_type == 'seed' -%}

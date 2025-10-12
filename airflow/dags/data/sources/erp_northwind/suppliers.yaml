@@ -1,0 +1,27 @@
+file_type: csv
+file_path: erp_northwind/suppliers.csv
+columns:
+  - name: supplier_id
+    type: integer
+  - name: company_name
+    type: text
+  - name: contact_name
+    type: text
+  - name: contact_title
+    type: text
+  - name: address
+    type: text
+  - name: city
+    type: text
+  - name: region
+    type: text
+  - name: postal_code
+    type: text
+  - name: country
+    type: text
+  - name: phone
+    type: text
+  - name: fax
+    type: text
+  - name: homepage
+    type: text

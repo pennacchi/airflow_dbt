@@ -5,3 +5,6 @@ env/
 airflow/.env
 airflow/dags/__pycache__
 presentation.md
+.vscode
+.github/src/Presentation project dbt-airflow.mp4
+__pycache__

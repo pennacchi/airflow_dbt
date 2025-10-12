@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: northwind__categories
+    description: "Product categories. e.g.: beverages, condiments, dairy products, etc."
+    columns:
+      - name: category_id
+        description: "Primary key of the category, created as 'northwind||' concatenated with the original category_id."
+      - name: category_name
+        description: "Name of the category"
+      - name: description
+        description: "Detailed description of the category"
+      - name: picture
+        description: "Should be the picture of the category but it is empty"

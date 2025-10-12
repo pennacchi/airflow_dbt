@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: northwind__ship_via
+    description: "Shipping methods used in orders. e.g.: ship via companies or methods."
+    columns:
+      - name: ship_via_id
+        description: "Primary key of the shipping method, created as 'northwind||' concatenated with the original ship_via_id."
+      - name: description
+        description: "Description of the shipping method."

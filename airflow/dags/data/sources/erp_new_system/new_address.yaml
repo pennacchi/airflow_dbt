@@ -1,0 +1,17 @@
+file_type: csv
+file_path: erp_new_system/new_address.csv
+columns:
+  - name: address_id
+    type: integer
+  - name: ship_name
+    type: string
+  - name: ship_address
+    type: string
+  - name: ship_city
+    type: string
+  - name: ship_region
+    type: string
+  - name: ship_postal_code
+    type: string
+  - name: ship_country
+    type: string

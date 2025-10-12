@@ -1,0 +1,31 @@
+file_type: csv
+file_path: erp_northwind/orders.csv
+columns:
+  - name: order_id
+    type: integer
+  - name: customer_id
+    type: text
+  - name: employee_id
+    type: integer
+  - name: order_date
+    type: date
+  - name: required_date
+    type: date
+  - name: shipped_date
+    type: date
+  - name: ship_via
+    type: integer
+  - name: freight
+    type: float
+  - name: ship_name
+    type: text
+  - name: ship_address
+    type: text
+  - name: ship_city
+    type: text
+  - name: ship_region
+    type: text
+  - name: ship_postal_code
+    type: text
+  - name: ship_country
+    type: text

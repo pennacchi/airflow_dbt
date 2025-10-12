@@ -1,0 +1,13 @@
+file_type: csv
+file_path: erp_northwind/order_details.csv
+columns:
+  - name: order_id
+    type: integer
+  - name: product_id
+    type: text
+  - name: unit_price
+    type: float
+  - name: quantity
+    type: integer
+  - name: discount
+    type: float

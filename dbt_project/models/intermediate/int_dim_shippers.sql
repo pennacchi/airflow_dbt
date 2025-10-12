@@ -9,6 +9,6 @@ with dim_shipper as (
     , company_name as shipper
     , phone        as shipper_phone
     , 'northwind'  as shipper_source
-  from {{ ref('stg_shippers') }}
+  from {{ ref('northwind__shippers') }}
 )
 select * from dim_shipper

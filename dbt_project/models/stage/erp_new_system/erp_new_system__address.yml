@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: erp_new_system__address
+    description: "Address of our customers and others. Example: Ana Silva, 123 Main Street"
+    columns:
+      - name: address_id
+        data_type: string
+        description: "Primary key of the address. Value composed as 'erp_new_system||' + original address_id."
+      - name: ship_name
+        data_type: string
+        description: "Name of the shipping location."
+      - name: ship_address
+        data_type: string
+        description: "Street address of the shipping location."
+      - name: ship_city
+        data_type: string
+        description: "City of the shipping location."
+      - name: ship_region
+        data_type: string
+        description: "Region or state of the shipping location. E.g.: IL, NY, MA, etc."
+      - name: ship_postal_code
+        data_type: string
+        description: "Postal code of the shipping location."
+      - name: ship_country
+        data_type: string
+        description: "Country of the shipping location."

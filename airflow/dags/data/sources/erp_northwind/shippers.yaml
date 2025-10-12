@@ -1,0 +1,9 @@
+file_type: csv
+file_path: erp_northwind/shippers.csv
+columns:
+  - name: shipper_id
+    type: integer
+  - name: company_name
+    type: text
+  - name: phone
+    type: text
