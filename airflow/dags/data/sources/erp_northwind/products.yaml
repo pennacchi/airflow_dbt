@@ -1,0 +1,23 @@
+file_type: csv
+file_path: erp_northwind/products.csv
+columns:
+  - name: product_id
+    type: integer
+  - name: product_name
+    type: text
+  - name: supplier_id
+    type: integer
+  - name: category_id
+    type: integer
+  - name: quantity_per_unit
+    type: text
+  - name: unit_price
+    type: float
+  - name: units_in_stock
+    type: integer
+  - name: units_on_order
+    type: integer
+  - name: reorder_level
+    type: integer
+  - name: discontinued
+    type: integer

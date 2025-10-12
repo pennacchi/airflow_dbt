@@ -12,7 +12,7 @@ with dim_customer_northwind as (
     , phone                            as customer_phone
     , fax                              as customer_fax
     , 'northwind'                      as source
-  from {{ ref('stg_customers') }}
+  from {{ ref('northwind__customers') }}
 )
 , dim_customers_erp_new_system as (
   select 
@@ -28,7 +28,7 @@ with dim_customer_northwind as (
     , ''                               as customer_phone
     , ''                               as customer_fax
     , 'erp_new_system'                 as source
-  from {{ ref('stg_new_customers') }}
+  from {{ ref('erp_new_system__customers') }}
 )
 , dim_customers as (
   select * from dim_customer_northwind

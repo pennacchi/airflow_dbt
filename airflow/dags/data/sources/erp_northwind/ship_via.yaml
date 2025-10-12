@@ -1,0 +1,7 @@
+file_type: csv
+file_path: erp_northwind/ship_via.csv
+columns:
+  - name: ship_via_id
+    type: integer
+  - name: description
+    type: text

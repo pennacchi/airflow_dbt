@@ -1,0 +1,21 @@
+file_type: csv
+file_path: erp_new_system/new_sales.csv
+columns:
+  - name: sale_id
+    type: integer
+  - name: customer_id
+    type: integer
+  - name: salesperson_id
+    type: integer
+  - name: sale_date
+    type: date
+  - name: required_delivery_date
+    type: date
+  - name: shipped_date
+    type: date
+  - name: ship_via
+    type: string
+  - name: freight_value
+    type: number
+  - name: ship_address_id
+    type: integer

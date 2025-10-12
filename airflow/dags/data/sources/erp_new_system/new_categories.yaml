@@ -1,0 +1,7 @@
+file_type: csv
+file_path: erp_new_system/new_categories.csv
+columns:
+  - name: category_id
+    type: integer
+  - name: category_name
+    type: string

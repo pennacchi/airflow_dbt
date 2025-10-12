@@ -1,0 +1,9 @@
+file_type: csv
+file_path: erp_new_system/new_customers.csv
+columns:
+  - name: customer_id
+    type: integer
+  - name: company_name
+    type: string
+  - name: contact_name
+    type: string

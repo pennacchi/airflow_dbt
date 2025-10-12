@@ -1,0 +1,294 @@
+version: 2
+
+sources:
+  - name: northwind
+    description: "northwind data"
+    schema: raw
+    loader: bigquery
+    tables:
+      - name: aws_s3__erp_northwind__categories
+        description: "Product categories. e.g.: beverages, condiments, dairy products, etc."
+        columns:
+          - name: category_id
+            description: "Primary key of the category"
+            tests:
+              - not_null
+              - unique
+          - name: category_name
+            description: "Name of the category"
+          - name: description
+            description: "Detailed description of the category"
+          - name: picture
+            description: "Should be the picture of the category but it is empty"
+
+      - name: aws_s3__erp_northwind__customers
+        description: "Customers. e.g.: Cactus Comidas para llevar, Rancho grande, etc."
+        columns:
+          - name: customer_id
+            description: "Primary key of the customer"
+            tests:
+              - unique
+              - not_null
+          - name: aws_s3__erp_northwind__company_name
+            description: "Name of the company"
+          - name: contact_name
+            description: "Name of the contact person"
+          - name: contact_title
+            description: "Title of the contact person. e.g.: Sales Representative, Sales Agent, Owner, etc."
+          - name: address
+            description: "Address of the company. Not standard (written text)."
+          - name: city
+            description: "City of the company. They looks like the same names everytime."
+          - name: region
+            description: "Region of the company (in some cases it is the UF of the state other cases it is full name of state). e.g: RJ, SP, Québec, etc. There are some null values."
+          - name: postal_code
+            description: "Postal code of the company"
+          - name: country
+            description: "Country of the company"
+            tests:
+              - not_null
+          - name: phone
+            description: Phone of the company"
+          - name: fax
+            description: "Fax of the company"
+
+      - name: aws_s3__erp_northwind__employee_territories
+        description: "Relationship between employees and territories"
+        columns:
+          - name: employee_id
+            description: "Foreign key of the employee"
+            tests:
+              - not_null
+          - name: territory_id
+            description: "Foreign key of the territory"
+            tests:
+              - not_null
+
+      - name: aws_s3__erp_northwind__employees
+        description: "Employees. e.g.: Nancy Davolio, Andrew Fuller, Janet Leverling, etc."
+        columns:
+          - name: employee_id
+            description: "Primary key of the employee"
+            tests:
+              - unique
+              - not_null
+          - name: last_name
+            description: "Last name of the employee"
+            tests:
+              - not_null
+          - name: first_name
+            description: "First name of the employee"
+            tests:
+              - not_null
+          - name: title
+            description: "Title of the employee. e.g.: Sales Representative, Sales Agent, Owner, etc."
+          - name: title_of_courtesy
+            description: "Title of courtesy of the employee. e.g.: Ms., Mr., Mrs., Dr., etc."
+          - name: birth_date
+            description: "Birth date of the employee"
+          - name: hire_date
+            description: "Hire date of the employee"
+          - name: address
+            description: "Address of the employee. Not standard (written text)."
+          - name: city
+            description: "City of the employee. They looks like the same names everytime."
+          - name: region
+            description: "Region of the employee (state). There are some null values."
+          - name: postal_code
+            description: "Postal code of the employee"
+          - name: country
+            description: "Country of the employee"
+          - name: home_phone
+            description: "Home phone of the employee"
+          - name: extension 
+            description: "Extension of the employee"
+          - name: notes
+            description: "Notes of the employee"
+          - name: reports_to
+            description: "Reports to of the employee"
+      
+      - name: aws_s3__erp_northwind__order_details
+        description: "Detail of each order like which products, unit price, qty, was bought, etc."
+        columns:
+          - name: order_id
+            description: "Foreign key of the order"
+            tests:
+              - not_null
+          - name: product_id
+            description: "Foreign key of the product"
+            tests:
+              - not_null
+          - name: unit_price
+            description: "Unit price of the product"
+            tests:
+              - not_null
+          - name: quantity
+            description: "Quantity of the product"
+            tests:
+              - not_null
+          - name: discount
+            description: "Discount of the product"
+            tests:
+              - not_null
+
+      - name: aws_s3__erp_northwind__orders
+        description: "Order information like the customer, sales person, date, etc."
+        columns:
+          - name: order_id
+            description: "Primary key of the order"
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: "Foreign key of the customer"
+            tests:
+              - not_null
+          - name: employee_id
+            description: "Foreign key of the employee"
+            tests:
+              - not_null
+          - name: order_date
+            description: "Date of the order"
+          - name: required_date
+            description: "Required date of the order"
+          - name: shipped_date
+            description: "Shipped date of the order"
+          - name: ship_via
+            description: "Code of the ship via. e.g.: 1, 2, 3, 4, etc."
+          - name: freight
+            description: "Freight value of the order"
+          - name: ship_name
+            description: "Name of the ship"
+          - name: ship_address
+            description: "Address of the ship. Not standard (written text)."
+          - name: ship_city
+            description: "City of the ship. They looks like the same names everytime."
+          - name: ship_region
+            description: "Region of the ship (state). There are some null values."
+          - name: ship_postal_code
+            description: "Postal code of the ship"
+          - name: ship_country
+            description: "Country of the ship"
+      
+      - name: aws_s3__erp_northwind__products
+        description: "Products. e.g.: Chai, Chang, Aniseed Syrup, etc."
+        columns:
+          - name: product_id
+            description: "Primary key of the product"
+            tests:
+              - unique
+              - not_null
+          - name: product_name
+            description: "Name of the product"
+            tests:
+              - not_null
+          - name: supplier_id
+            description: "Foreign key of the supplier"
+          - name: category_id
+            description: "Foreign key of the category"
+          - name: quantity_per_unit
+            description: "Description of quantity per unit of the product. e.g.: 10 boxes x 20 bags, 24 - 12 oz bottles, etc."
+          - name: unit_price
+            description: "Unit price of the product"
+          - name: units_in_stock
+            description: "Units in stock of the product"
+          - name: units_on_order
+            description: "Units on order of the product"
+          - name: reorder_level
+            description: "Reorder level of the product"
+          - name: discontinued
+            description: "Discontinued flag of the product"
+
+      - name: aws_s3__erp_northwind__region
+        description: "Region information. E.g: Eastern, Western, etc."
+        columns:
+          - name: region_id
+            description: "Primary key of the region"
+            tests:
+              - unique
+              - not_null
+          - name: region_description
+            description: "Description of the region"
+
+      - name: aws_s3__erp_northwind__ship_via
+        description: "Companies responsable for shipping. e.g.: Speedy Express, United Package, etc."
+        columns:
+          - name: ship_via_id
+            description: "Primary key of the ship via"
+            tests:
+              - unique
+              - not_null
+          - name: description
+            description: "Description of the ship via. e.g: Speedy Express, United Package, etc."
+      
+      - name: aws_s3__erp_northwind__shippers
+        description: "Companies responsable for shipping. e.g.: Speedy Express, United Package, etc."
+        columns:
+          - name: shipper_id
+            description: "Primary key of the shipper"
+            tests:
+              - unique
+              - not_null
+          - name: company_name
+            description: "Name of the shipper"
+          - name: phone
+            description: "Phone of the shipper"
+
+      - name: aws_s3__erp_northwind__suppliers
+        description: "Suppliers. e.g.: Exotic Liquids, New Orleans Cajun Delights, etc."
+        columns:
+          - name: supplier_id
+            description: "Primary key of the supplier"
+            tests:
+              - unique
+              - not_null
+          - name: company_name
+            description: "Name of the supplier"
+          - name: contact_name
+            description: "Contact name of the supplier"
+          - name: contact_title
+            description: "Contact title of the supplier. e.g: Marketing Manager, Sales Representative, Owner, etc."
+          - name: address
+            description: "Address of the supplier. Not standard (written text)."
+          - name: city
+            description: "City of the supplier. They looks like the same names everytime."
+          - name: region
+            description: "Region of the supplier (state). There are some null values."
+          - name: postal_code
+            description: "Postal code of the supplier"
+          - name: country
+            description: "Country of the supplier"
+          - name: phone
+            description: "Phone of the supplier"
+          - name: fax
+            description: "Fax of the supplier"
+          - name: homepage
+            description: "Homepage of the supplier. A lot of empty values"
+
+      - name: aws_s3__erp_northwind__territories
+        description: "Territories (cities). e.g.: Boston, Cambridge, Orlando, etc."
+        columns:
+          - name: territory_id
+            description: "Primary key of the territory"
+            tests:
+              - unique
+              - not_null
+          - name: territory_description
+            description: "Description of the territory"
+          - name: region_id
+            description: "Foreign key of the region. e.g.: western, eastern, etc."
+
+      - name: aws_s3__erp_northwind__us_states
+        description: "United States states. e.g.: Alabama, Alaska, Arizona, etc."
+        columns:
+          - name: state_id
+            description: "Primary key of the state"
+            tests:
+              - unique
+              - not_null
+          - name: state_name
+            description: "Name of the state"
+          - name: state_abbr
+            description: "Abbreviation of the state"
+          - name: state_region
+            description: "Region of the state. e.g.: south, north, west, etc."

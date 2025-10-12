@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: northwind__order_details
+    description: "Detail of each order like which products, unit price, qty, was bought, etc."
+    columns:
+      - name: order_id
+        description: "Foreign key of the order, created as 'northwind||' concatenated with the original order_id."
+      - name: product_id
+        description: "Foreign key of the product, created as 'northwind||' concatenated with the original product_id."
+      - name: unit_price
+        description: "Unit price of the product"
+      - name: quantity
+        description: "Quantity of the product"
+      - name: discount
+        description: "Discount of the product"

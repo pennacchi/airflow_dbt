@@ -1,0 +1,13 @@
+file_type: csv
+file_path: erp_new_system/new_suppliers.csv
+columns:
+  - name: supplier_id
+    type: integer
+  - name: supplier_name
+    type: string
+  - name: contact_person
+    type: string
+  - name: phone
+    type: string
+  - name: email
+    type: string

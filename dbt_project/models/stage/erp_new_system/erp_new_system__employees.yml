@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: erp_new_system__employees
+    description: ""
+    columns:
+      - name: employee_id
+        data_type: string
+        description: "Primary key of the employee. Value composed as 'erp_new_system||' + original employee_id."
+      - name: name
+        data_type: string
+        description: "Name of the employee."
+      - name: title
+        data_type: string
+        description: "Job title of the employee."
+      - name: boss_id
+        data_type: int64
+        description: "Foreign key to the immediate boss (employee_id)."

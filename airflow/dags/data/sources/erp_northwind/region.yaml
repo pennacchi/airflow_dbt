@@ -1,0 +1,7 @@
+file_type: csv
+file_path: erp_northwind/region.csv
+columns:
+  - name: region_id
+    type: integer
+  - name: region_description
+    type: text

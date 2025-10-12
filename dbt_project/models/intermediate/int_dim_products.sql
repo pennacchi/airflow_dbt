@@ -14,9 +14,9 @@ with dim_products_northwind as (
     , p.reorder_level        as product_reorder_level
     , p.discontinued         as product_discontinued
     , 'northwind'            as product_source
-   from {{ ref('stg_products') }} as p
-   left join {{ ref('stg_categories') }} as c on p.category_id = c.category_id
-   left join {{ ref('stg_suppliers') }} as s on p.supplier_id = s.supplier_id
+   from {{ ref('northwind__products') }} as p
+   left join {{ ref('northwind__categories') }} as c on p.category_id = c.category_id
+   left join {{ ref('northwind__suppliers') }} as s on p.supplier_id = s.supplier_id
 )
 , dim_products_erp_new_system as (
   select 
@@ -34,9 +34,9 @@ with dim_products_northwind as (
     , CAST(NULL as INT64)   as product_reorder_level
     , 0                     as product_discontinued
     , 'erp_new_system'      as product_source
-   from {{ ref('stg_new_products') }} as p
-   left join {{ ref('stg_new_categories') }} as c on p.category_id = c.category_id
-   left join {{ ref('stg_new_suppliers') }} as s on p.supplier_id = s.supplier_id
+   from {{ ref('erp_new_system__products') }} as p
+   left join {{ ref('erp_new_system__categories') }} as c on p.category_id = c.category_id
+   left join {{ ref('erp_new_system__suppliers') }} as s on p.supplier_id = s.supplier_id
 )
 , dim_products as (
   select * from dim_products_northwind

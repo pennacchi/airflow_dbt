@@ -1,0 +1,7 @@
+file_type: csv
+file_path: erp_northwind/employee_territories.csv
+columns:
+  - name: employee_id
+    type: integer
+  - name: territory_id
+    type: integer

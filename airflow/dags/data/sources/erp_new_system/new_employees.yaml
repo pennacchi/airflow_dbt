@@ -1,0 +1,11 @@
+file_type: csv
+file_path: erp_new_system/new_employees.csv
+columns:
+  - name: employee_id
+    type: integer
+  - name: name
+    type: string
+  - name: title
+    type: string
+  - name: boss_id
+    type: integer

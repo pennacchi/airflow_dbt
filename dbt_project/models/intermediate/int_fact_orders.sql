@@ -34,9 +34,9 @@ with order_and_details_erp_new_system as (
     , a.ship_region
     , a.ship_postal_code
     , a.ship_country
-  from {{ ref('stg_new_sales') }} as s
-  left join {{ ref('stg_new_sales_details') }} as sd on sd.sale_id = s.sale_id
-  left join {{ ref("stg_new_address") }} as a on s.ship_address_id = a.address_id
+  from {{ ref('erp_new_system__sales') }} as s
+  left join {{ ref('erp_new_system__sales_details') }} as sd on sd.sale_id = s.sale_id
+  left join {{ ref("erp_new_system__address") }} as a on s.ship_address_id = a.address_id
   
 )
 , freight_as_order_and_details_erp_new_system as (
@@ -66,8 +66,8 @@ with order_and_details_erp_new_system as (
     , a.ship_region
     , a.ship_postal_code
     , a.ship_country
-  from {{ ref('stg_new_sales') }} as s
-  left join {{ ref("stg_new_address") }} as a on s.ship_address_id = a.address_id
+  from {{ ref('erp_new_system__sales') }} as s
+  left join {{ ref("erp_new_system__address") }} as a on s.ship_address_id = a.address_id
 )
 /*
 --------------------------------------------------------------------------------------------------
@@ -104,9 +104,9 @@ So we first create our order_and_details table and then add the freight as a pro
     , o.ship_region
     , o.ship_postal_code
     , o.ship_country
-  from {{ ref('stg_orders') }} as o
-  left join {{ ref('stg_order_details') }} as od on o.order_id = od.order_id
-  left join {{ ref('stg_ship_via') }} as sv on o.ship_via_id = sv.ship_via_id
+  from {{ ref('northwind__orders') }} as o
+  left join {{ ref('northwind__order_details') }} as od on o.order_id = od.order_id
+  left join {{ ref('northwind__ship_via') }} as sv on o.ship_via_id = sv.ship_via_id
 )
 , freight_as_order_detail_northwind as (
     select 
@@ -135,8 +135,8 @@ So we first create our order_and_details table and then add the freight as a pro
       , ship_region
       , ship_postal_code
       , ship_country
-    from {{ ref('stg_orders') }} as o
-    left join {{ ref('stg_ship_via') }} as sv on o.ship_via_id = sv.ship_via_id
+    from {{ ref('northwind__orders') }} as o
+    left join {{ ref('northwind__ship_via') }} as sv on o.ship_via_id = sv.ship_via_id
 )
 , fact_orders as (
   select * from order_and_details_northwind

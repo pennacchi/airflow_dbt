@@ -3,8 +3,8 @@ With dim_employees_erp_new_system as (
       e.employee_id                       as employee_id
     , e.name                              as employee
     , e.title                             as employee_title
-    , cast(NULL as DATE)                  as employee_birth_date
-    , cast(NULL as DATE)                  as employee_hire_date
+    , cast(NULL as TIMESTAMP)             as employee_birth_date
+    , cast(NULL as TIMESTAMP)             as employee_hire_date
     , e.boss_id                           as employee_reports_to
     , eh.hierarchy_level                  as employee_hierarchy_level
     , CASE
@@ -25,8 +25,8 @@ With dim_employees_erp_new_system as (
       END AS employee_superior_level_4
     , eh.hierarchy_path
     , 'erp_new_system'                    as employee_source
-  from {{ ref('stg_new_employees') }} e
-  left join {{ ref('stg_new_employee_hierarchy') }} eh 
+  from {{ ref('erp_new_system__employees') }} e
+  left join {{ ref('erp_new_system__employee_hierarchy') }} eh 
     on eh.employee_id = e.employee_id
 )
 , dim_employees_northwind as (
@@ -56,8 +56,8 @@ With dim_employees_erp_new_system as (
       END AS employee_superior_level_4
     , eh.hierarchy_path
     , 'northwind'          as employee_source
-  FROM {{ ref('stg_employees') }} e
-  LEFT JOIN {{ ref('stg_employee_hierarchy') }} eh
+  FROM {{ ref('northwind__employees') }} e
+  LEFT JOIN {{ ref('northwind__employee_hierarchy') }} eh
     ON eh.employee_id = e.employee_id
 ) 
 , dim_employees as (

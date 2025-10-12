@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: northwind__suppliers
+    description: "Suppliers. e.g.: Exotic Liquids, New Orleans Cajun Delights, etc."
+    columns:
+      - name: supplier_id
+        description: "Primary key of the supplier, created as 'northwind||' concatenated with the original supplier_id."
+      - name: company_name
+        description: "Name of the supplier"
+      - name: contact_name
+        description: "Contact name of the supplier"
+      - name: contact_title
+        description: "Contact title of the supplier. e.g: Marketing Manager, Sales Representative, Owner, etc."
+      - name: address
+        description: "Address of the supplier. Not standard (written text)."
+      - name: city
+        description: "City of the supplier. They looks like the same names everytime."
+      - name: region
+        description: "Region of the supplier (state). There are some null values."
+      - name: postal_code
+        description: "Postal code of the supplier"
+      - name: country
+        description: "Country of the supplier"
+      - name: phone
+        description: "Phone of the supplier"
+      - name: fax
+        description: "Fax of the supplier"
+      - name: homepage
+        description: "Homepage of the supplier. A lot of empty values"
