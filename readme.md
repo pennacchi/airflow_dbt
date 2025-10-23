@@ -4,10 +4,11 @@ This project implements a data transformation process using dbt (Data Build Tool
 ![ETL Overview](.github/src/etl_overview.png)
 
 ## Data Sources
-![Data Sources](.github/src/data_sources.png)
 All our raw data come from csv located on s3 (you can reproduce that by coping all csv files on dbt_project/seeds and storing into a bucket on S3). Each folder is related to a different system:
   - erp_northwind: sales of northwind.
   - erp_new_system: fictional dataset created for this project.
+
+![Data Sources](.github/src/data_sources.png)
 
 
 ## Data Flow
@@ -16,13 +17,18 @@ Our extractions are orchestrated by Airflow. The "ingest_and_transform" is our m
  - Extract data from csv files on S3
  - Validate data types and mandatory columns
  - Store into BigQuery
+
 ![DAG Ingest and Transform](.github/src/dag_ingest_and_transform.png)
 
-The folder containing the metadata (data contracts) is "airflow/dags/data/sources". 
-Each system will have a specific folder and inside each folder there is a yaml file for each file on S3 that will be extracted from S3 to our data warehouse:
+## Files to be extracted
+The list of files that will be extracted come from the folder "airflow/dags/data/sources". 
+Each system will have a specific folder and inside each folder there is a yaml file for each file on S3 that will be extracted from S3 to our data warehouse. Each file contains the metadata of the file. It is like a data contract with our expectations about the file.
+
 ![DAG Ingest and Transform Python Script](.github/src/dag_ingest_and_transform_python_script.png)
 
+## DAG script
 This is the script behind the DAF that will execute the pipeline. It executes file ingestion (EL) and our transformations on DBT (T) and tests:
+
 ![Task and output bigquery](.github/src/task_and_output_bigquery.png)
 
 
@@ -37,9 +43,9 @@ When a new pull request is done on GitHub, starts CI:
  - Run only queries that was changed (all executions are done in a isolated dataset not affecting production neither development)
 
 When a pull request is merged, two steps are executed:
-- CI teardown:
-  - Delete the datasets related to pull_request
-- CD:
+CI teardown:
+ - Delete the datasets related to pull_request
+CD:
  - All dependencies are installed
  - Get manifest.json from S3 (the same manifest.json from production (result of the final step of CD))
  - Compare manifest.json from production with the current version
@@ -80,20 +86,15 @@ docker build -t dbt_image .
 *Run command 'docker images' to check if the image was created.
 
 
-## Set up airflow containers
-This will create the containers that will run airflow. Run command:
+# Starting the project
+## Start Airflow
+Execute commands:
 
 cd airflow
 docker compose up airflow-dbt
 cd ..
 
-
-# Starting the project
-This will start running each container of airflow. Run commands:
-
-cd airflow
-docker compose up -d
-cd ..
+This will start each container of airflow.
 
 ## Access Airflow
 You can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD.
