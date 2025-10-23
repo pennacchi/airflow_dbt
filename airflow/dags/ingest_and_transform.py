@@ -14,6 +14,7 @@ from datetime import datetime
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 import pandas as pd
 from airflow.providers.google.cloud.hooks.bigquery import BigQueryHook
+from airflow.utils.trigger_rule import TriggerRule
 from common.FileValidator import FileValidator
 
 AWS_S3_CONNECTION = 'aws_s3'
@@ -79,8 +80,20 @@ def ingest_file(file_properties, connection_id=AWS_S3_CONNECTION):
 
 def validate_file(df, metadata):
     validator = FileValidator(df, metadata)
-    validator.validate_all_mandatory_columns_exist()
-    validator.validate_data_types(df)
+    not_found_columns = validator.validate_all_mandatory_columns_exist()
+    errors_in_data_types = validator.validate_data_types(df)
+
+    if len(not_found_columns) > 0:
+        print(f"\n\nMandatory columns {not_found_columns} not found on source file.\n\n")
+
+    if len(errors_in_data_types) > 0:
+        print("\n\nError in data types:\n\n")
+        for error in errors_in_data_types:
+            print(error)
+    
+    if len(not_found_columns) > 0 or len(errors_in_data_types) > 0:
+        raise Exception(f"Errors found in file {metadata['file_path']}")
+    
     df = validator.remove_extra_columns(df)
     return df
 
@@ -92,7 +105,6 @@ def get_files_to_extract_metadata():
             with f.open('r', encoding='utf-8') as file_read:
                 file_metadata = yaml.safe_load(file_read)
                 files_metadata.append(file_metadata)
-    print(files_metadata)
     return files_metadata
 
 with DAG(
@@ -116,6 +128,7 @@ with DAG(
 
     run_stage = DockerOperator(
         task_id='run_stage',
+        trigger_rule=TriggerRule.ALL_DONE,
         image='dbt_image',
         container_name="run_stage",
         auto_remove=True,

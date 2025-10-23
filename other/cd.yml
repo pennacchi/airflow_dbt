@@ -1,14 +1,14 @@
-name: CI_action
+name: CD_action
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  CI_job:
+  CD_job:
     runs-on: ubuntu-latest
-    
+
     env:
       GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
       GCLOUD_STORAGE_PATH_MANIFEST: ${{ secrets.GCLOUD_STORAGE_PATH_MANIFEST }}
@@ -30,42 +30,43 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    
-    - name: Configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    
-    - name: Copy manifest.json from s3
-      run: |
-        aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json . || echo "Manifest not found"
 
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.12'
-    
+
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Get Schema ID
-      id: schema_id
-      run: echo "SCHEMA_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-    
-    - name: Run dbt debug
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0.4.3
+      with:
+        credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.PROD_BIGQUERY_PROJECT }}
+
+    - name: Copy manifest.json from Google Cloud Storage
       run: |
-        dbt debug --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        gsutil cp gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/manifest.json ./ || echo "Manifest not found"
+
+    - name: Run dbt debug
+      run: dbt debug --target prod --profiles-dir dbt_project --project-dir dbt_project
 
     - name: Run dbt deps
-      run: |
-        dbt deps --profiles-dir dbt_project --project-dir dbt_project
-    
+      run: dbt deps --target prod --profiles-dir dbt_project --project-dir dbt_project
+
     - name: Run dbt build
       run: |
         if [ -f "./manifest.json" ]; then
-          dbt run -s 'state:modified+' --defer --state ./ --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+          dbt build -s 'state:modified+' --state ./ --target prod --profiles-dir dbt_project --project-dir dbt_project
         else
-          dbt run --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+          dbt build --target prod --profiles-dir dbt_project --project-dir dbt_project
         fi
+
+    - name: Copy new manifest.json to Google Cloud Storage
+      run: |
+        gsutil cp dbt_project/target/manifest.json gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/
