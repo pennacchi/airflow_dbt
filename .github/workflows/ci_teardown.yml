@@ -37,12 +37,9 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Get PR NUM
-      id: schema_id
-      run: echo "PR_NUM=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
 
     - name: dbt deps
       run: dbt deps --profiles-dir dbt_project --project-dir dbt_project
 
     - name: drop PR schemas
-      run: dbt run-operation drop_pr_staging_schemas --args "{'project_id'":" '${DEV_BIGQUERY_PROJECT}', 'PR_number'":" '${PR_NUM}' }" --profiles-dir dbt_project --project-dir dbt_project
+      run: dbt run-operation drop_pr_staging_schemas --args "{'project_id'":" '${DEV_BIGQUERY_PROJECT}' }" --profiles-dir dbt_project --project-dir dbt_project

@@ -5,7 +5,7 @@
             select schema_name
             from {{ project_id }}.INFORMATION_SCHEMA.SCHEMATA
             where
-            schema_name like 'pr_'||{{ PR_number }}||'_%'
+            schema_name like 'pull_request_%'
         )
 
         select 

@@ -37,11 +37,11 @@ dbt_project:
         auth_provider_x509_cert_url: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_AUTH_PROVIDER_X509_CERT_URL') }}"
         client_x509_cert_url: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_CLIENT_X509_CERT_URL') }}"
     
-    pr:
+    pull_request:
       type: bigquery
       method: service-account-json
-      project: "{{ env_var('PROD_BIGQUERY_PROJECT') }}"
-      dataset: "pull_request_{{ var('schema_id') }}"
+      project: "{{ env_var('DEV_BIGQUERY_PROJECT') }}"
+      dataset: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
       threads: 4 # Must be a value of 1 or greater
       keyfile_json:
         type: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_TYPE') }}"

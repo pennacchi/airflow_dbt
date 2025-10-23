@@ -49,14 +49,10 @@ jobs:
     
     - name: Install dependencies
       run: pip install -r requirements.txt
-
-    - name: Get Schema ID
-      id: schema_id
-      run: echo "SCHEMA_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
     
     - name: Run dbt debug
       run: |
-        dbt debug --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        dbt debug --profiles-dir dbt_project --project-dir dbt_project --target pull_request
 
     - name: Run dbt deps
       run: |
@@ -65,7 +61,7 @@ jobs:
     - name: Run dbt build
       run: |
         if [ -f "./manifest.json" ]; then
-          dbt run -s 'state:modified+' --defer --state ./ --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+          dbt run -s '+state:modified+' --defer --state ../ --profiles-dir dbt_project --project-dir dbt_project --target pull_request 
         else
-          dbt run --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+          dbt run --profiles-dir dbt_project --project-dir dbt_project --target pull_request
         fi
