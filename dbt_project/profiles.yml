@@ -40,7 +40,7 @@ dbt_project:
     pull_request:
       type: bigquery
       method: service-account-json
-      project: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
+      project: "{{ env_var('DEV_BIGQUERY_PROJECT') }}"
       dataset: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
       threads: 4 # Must be a value of 1 or greater
       keyfile_json:
