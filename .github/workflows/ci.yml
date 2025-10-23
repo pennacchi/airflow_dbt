@@ -41,32 +41,31 @@ jobs:
     - name: Copy manifest.json from s3
       run: |
         aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json . || echo "Manifest not found"
-        
-    # - name: Set up Python
-    #   uses: actions/setup-python@v3
-    #   with:
-    #     python-version: '3.12'
-    
-    # - name: Install dependencies
-    #   run: pip install -r requirements.txt
 
-
-    # - name: list files
-    #   run: |
-    #     ls
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.12'
     
-    # - name: Run dbt debug
-    #   run: |
-    #     dbt debug --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
-    # - name: Run dbt deps
-    #   run: |
-    #     dbt deps --profiles-dir dbt_project --project-dir dbt_project
+    - name: Get Schema ID
+      id: schema_id
+      run: echo "SCHEMA_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
     
-    # - name: Run dbt build
-    #   run: |
-    #     if [ -f "./manifest.json" ]; then
-    #       dbt run -s 'state:modified+' --defer --state ./ --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
-    #     else
-    #       dbt run --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
-    #     fi
+    - name: Run dbt debug
+      run: |
+        dbt debug --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+
+    - name: Run dbt deps
+      run: |
+        dbt deps --profiles-dir dbt_project --project-dir dbt_project
+    
+    - name: Run dbt build
+      run: |
+        if [ -f "./manifest.json" ]; then
+          dbt run -s 'state:modified+' --defer --state ./ --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        else
+          dbt run --profiles-dir dbt_project --project-dir dbt_project --target pr --vars "schema_id: $SCHEMA_ID"
+        fi
