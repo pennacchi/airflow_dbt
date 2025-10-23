@@ -53,9 +53,6 @@ jobs:
     - name: Run dbt debug
       run: dbt debug --target prod --profiles-dir dbt_project --project-dir dbt_project
 
-    - name: Run dbt deps
-      run: dbt deps --target prod --profiles-dir dbt_project --project-dir dbt_project
-
     - name: Run dbt build
       run: |
         if [ -f "./manifest.json" ]; then
