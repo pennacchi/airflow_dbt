@@ -40,16 +40,8 @@ jobs:
     
     - name: Copy manifest.json from s3
       run: |
-        aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json .
-    
-    - name: Veriffy manifest.json
-      run: |
-        if [ -f "./manifest.json" ]; then
-          echo "Manifest found"
-        else
-          echo "Manifest not found"
-        fi
-
+        aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json . || echo "Manifest not found"
+        
     # - name: Set up Python
     #   uses: actions/setup-python@v3
     #   with:
@@ -57,24 +49,7 @@ jobs:
     
     # - name: Install dependencies
     #   run: pip install -r requirements.txt
-    
-    # - name: Authenticate to Google Cloud
-    #   uses: google-github-actions/auth@v0.4.3
-    #   with:
-    #     credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
-    
-    # - name: Set up Cloud SDK
-    #   uses: google-github-actions/setup-gcloud@v1
-    #   with:
-    #     project_id: ${{ secrets.DEV_BIGQUERY_PROJECT }}
-    
-    # - name: Copy manifest.json from Google Cloud Storage
-    #   run: |
-    #     gsutil cp gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/manifest.json ./ || echo "Manifest not found"
-    
-    # - name: Get Schema ID
-    #   id: schema_id
-    #   run: echo "SCHEMA_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
 
     # - name: list files
     #   run: |
