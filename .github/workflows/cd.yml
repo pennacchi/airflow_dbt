@@ -64,10 +64,6 @@ jobs:
           dbt build --target prod --profiles-dir dbt_project --project-dir dbt_project
         fi
 
-    - name: Copy new manifest.json to Google Cloud Storage
-      run: |
-        gsutil cp dbt_project/target/manifest.json gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/
-
     - name: Copy new manifest.json to s3
       run: |
         aws s3 cp dbt_project/target/manifest.json s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json
