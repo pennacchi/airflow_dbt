@@ -53,12 +53,20 @@ jobs:
     - name: Run dbt debug
       run: dbt debug --target prod --profiles-dir dbt_project --project-dir dbt_project
 
-    - name: Run dbt build
+    - name: Run dbt run
       run: |
         if [ -f "./manifest.json" ]; then
-          dbt build -s 'state:modified+' --state ../ --target prod --profiles-dir dbt_project --project-dir dbt_project
+          dbt run -s 'state:modified+' --state ../ --target prod --profiles-dir dbt_project --project-dir dbt_project
         else
-          dbt build --target prod --profiles-dir dbt_project --project-dir dbt_project
+          dbt run --target prod --profiles-dir dbt_project --project-dir dbt_project
+        fi
+    
+    - name: Run dbt test
+      run: |
+        if [ -f "./manifest.json" ]; then
+          dbt test -s 'state:modified+' --state ../ --target prod --profiles-dir dbt_project --project-dir dbt_project
+        else
+          dbt test --target prod --profiles-dir dbt_project --project-dir dbt_project
         fi
 
     - name: Copy new manifest.json to s3
