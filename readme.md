@@ -26,10 +26,13 @@ Each system will have a specific folder and inside each folder there is a yaml f
 
 ![DAG Ingest and Transform Python Script](.github/src/dag_ingest_and_transform_python_script.png)
 
-## DAG script
-This is the script behind the DAF that will execute the pipeline. It executes file ingestion (EL) and our transformations on DBT (T) and tests:
+## Tasks of our DAG
+Each file will generate a new task of our DAG. The execution of each task will create a new table on BigQuery completing our EL process.
 
 ![Task and output bigquery](.github/src/task_and_output_bigquery.png)
+
+## Transformation 
+At the same DAG we have tasks to run our stage, intermediate, and datamart layers.
 
 
 ## CI/CD Process
