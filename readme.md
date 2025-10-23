@@ -7,28 +7,49 @@ This project implements a data transformation process using dbt (Data Build Tool
 ![Data Sources](.github/src/data_sources.png)
 All our raw data come from csv located on s3 (you can reproduce that by coping all csv files on dbt_project/seeds and storing into a bucket on S3). Each folder is related to a different system:
   - erp_northwind: sales of northwind.
-  - ero_new_system: fictional dataset created for this project.
+  - erp_new_system: fictional dataset created for this project.
 
 
 ## Data Flow
-![DAG Ingest and Transform](.github/src/dag_ingest_and_transform.png)
 Our extractions are orchestrated by Airflow. The "ingest_and_transform" is our main DAG. It executes the file ingestion:
- - Get a list of files to be extracted from the folder: airflow/dags/data/sources. This folder will have metadata of each file to be extracted
+ - Get a list of files to be ingested
  - Extract data from csv files on S3
  - Validate data types and mandatory columns
  - Store into BigQuery
+![DAG Ingest and Transform](.github/src/dag_ingest_and_transform.png)
 
+The folder containing the metadata (data contracts) is "airflow/dags/data/sources". 
+Each system will have a specific folder and inside each folder there is a yaml file for each file on S3 that will be extracted from S3 to our data warehouse:
 ![DAG Ingest and Transform Python Script](.github/src/dag_ingest_and_transform_python_script.png)
-![Task and output bigquery](.github/src/task_and_output_bigquery.png)
 
-This DAG also execute the transformations running transformations on stage, intermediate and marts area. It also runs tests.
+This is the script behind the DAF that will execute the pipeline. It executes file ingestion (EL) and our transformations on DBT (T) and tests:
+![Task and output bigquery](.github/src/task_and_output_bigquery.png)
 
 
 ## CI/CD Process
-To keep enable continous integrations of our code and continuous deployment, I am using github actions to make incremental validation (only checking what was changed from previous deployment (manifest.json) comparing with the new deployment).
+To enable continous integrations and deployment of our new code minimizing errors, I am using GitHub Actions to execute only our new code, execute tests, and publishing it to production.
+The ice of the cake here is that we will only execute new transformations, reducing the execution of unnecessary transformations.
+
+When a new pull request is done on GitHub, starts CI:
+ - All dependencies are installed
+ - Get manifest.json from S3 (the same manifest.json from production (result of the final step of CD))
+ - Compare manifest.json from production with the current version
+ - Run only queries that was changed (all executions are done in a isolated dataset not affecting production neither development)
+
+When a pull request is merged, two steps are executed:
+- CI teardown:
+  - Delete the datasets related to pull_request
+- CD:
+ - All dependencies are installed
+ - Get manifest.json from S3 (the same manifest.json from production (result of the final step of CD))
+ - Compare manifest.json from production with the current version
+ - Run only queries that was changed (all executions are done in a isolated dataset not affecting production neither development)
+ - Copy the new generated manifest.json to S3 (this will be used on our CI)
 
 
-# Requirements
+# Setup
+
+## Requirements
   - Python 3.9
   - Docker and Docker Compose
 
@@ -49,7 +70,6 @@ update csv files on dbt_project/seeds and need the correct permissions to do it,
 id -u
 
 With the result, update the variable AIRFLOW_UID on airflow/.env file
-
 
 ## Set up dbt image
 This creates an image that will generate a temporary container everytime we run a task on airflow related to dbt. Run commands:
@@ -75,15 +95,25 @@ cd airflow
 docker compose up -d
 cd ..
 
+## Access Airflow
+You can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD.
 
-# Our DAGs
-You can access airflow on http://localhost:8080/ and login with the credentials you saved on _AIRFLOW_WWW_USER_USERNAME and _AIRFLOW_WWW_USER_PASSWORD and then access our DAG.
-There is one main DAG:
-  - ingest_and_transform
+## Create 2 connections on Aiflow
+On airflow go to "Admin" > "Connections" and create these connections:
+- S3:
+Create a connection on airflow with "Connection Id" = 'aws_s3' "Connection Type" = 'Amazon Web Services' with your ACCESS_KEY_ID and SECRET_ACCESS_KEY
+
+- BigQuery
+Create a connection with "Connection Id" = 'google_bigquery_dwh_dev', "Connection Type" = 'Google Bigquery' and "Credential Configuration File" with the exact same text inside the json file you download from BigQuery.
 
 
-# Do you want to execute dbt models locally?
+# Execute
+To execute the project, go to DAG "ingest_and_transform" and trigger the execution (play). Your pipeline will run extracting all files from S3, loading into bigquery and execute the transformations.
 
+
+# Extra
+
+## Do you want to execute dbt models out of airflow and docker?
 
 ## Create virtual enviroment
 python -m venv venv
@@ -108,11 +138,6 @@ cd ..
 With configurations above, you are all set to run dbt commands. Go dbt_project: 
 
 cd dbt_project
-
-Now run dbt commands you want:
-
-dbt seed
-
 
 
 ## Roadmap
