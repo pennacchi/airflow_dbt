@@ -61,7 +61,7 @@ jobs:
     - name: Run dbt build
       run: |
         if [ -f "./manifest.json" ]; then
-          dbt run -s 'state:modified+' --defer --state ./ --profiles-dir dbt_project --project-dir dbt_project --target pull_request 
+          dbt run -s 'state:modified+' --defer --state ../ --profiles-dir dbt_project --project-dir dbt_project --target pull_request 
         else
           dbt run --profiles-dir dbt_project --project-dir dbt_project --target pull_request
         fi
