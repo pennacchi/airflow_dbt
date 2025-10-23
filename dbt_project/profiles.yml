@@ -41,7 +41,7 @@ dbt_project:
       type: bigquery
       method: service-account-json
       project: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
-      dataset: "pull_request"
+      dataset: "{{ env_var('DEV_BIGQUERY_DATASET') }}"
       threads: 4 # Must be a value of 1 or greater
       keyfile_json:
         type: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS_TYPE') }}"
