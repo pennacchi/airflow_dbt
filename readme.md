@@ -4,10 +4,10 @@ This project implements a data transformation process using dbt (Data Build Tool
 ![ETL Overview](.github/src/etl_overview.png)
 
 ## Data Sources
-![Data Sources](.github/src/data_sources.png)
 All our raw data come from csv located on s3 (you can reproduce that by coping all csv files on dbt_project/seeds and storing into a bucket on S3). Each folder is related to a different system:
   - erp_northwind: sales of northwind.
   - erp_new_system: fictional dataset created for this project.
+![Data Sources](.github/src/data_sources.png)
 
 
 ## Data Flow
