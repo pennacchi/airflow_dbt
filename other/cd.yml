@@ -39,17 +39,20 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0.4.3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    
-    - name: Copy manifest.json from s3
+        credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.PROD_BIGQUERY_PROJECT }}
+
+    - name: Copy manifest.json from Google Cloud Storage
       run: |
-        aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json . || echo "Manifest not found"
-    
+        gsutil cp gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/manifest.json ./ || echo "Manifest not found"
+
     - name: Run dbt debug
       run: dbt debug --target prod --profiles-dir dbt_project --project-dir dbt_project
 
@@ -67,7 +70,3 @@ jobs:
     - name: Copy new manifest.json to Google Cloud Storage
       run: |
         gsutil cp dbt_project/target/manifest.json gs://${{ env.GCLOUD_STORAGE_PATH_MANIFEST }}/
-
-    - name: Copy new manifest.json to s3
-      run: |
-        aws s3 cp dbt_project/target/manifest.json s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json
