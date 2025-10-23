@@ -31,32 +31,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: Configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Set up Python
+      uses: actions/setup-python@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        python-version: '3.12'
     
-    - name: Copy manifest.json from s3
-      run: |
-        aws s3 cp s3://${{ secrets.AWS_S3_BUCKET }}/manifest/manifest.json .
-    
-    - name: Veriffy manifest.json
-      run: |
-        if [ -f "./manifest.json" ]; then
-          echo "Manifest found"
-        else
-          echo "Manifest not found"
-        fi
-
-    # - name: Set up Python
-    #   uses: actions/setup-python@v3
-    #   with:
-    #     python-version: '3.12'
-    
-    # - name: Install dependencies
-    #   run: pip install -r requirements.txt
+    - name: Install dependencies
+      run: pip install -r requirements.txt
     
     # - name: Authenticate to Google Cloud
     #   uses: google-github-actions/auth@v0.4.3

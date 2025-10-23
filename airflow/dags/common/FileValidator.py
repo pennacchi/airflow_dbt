@@ -12,9 +12,6 @@ class FileValidator:
     for column in mandatory_columns:
       if column not in self.df.columns:
         not_found_columns.append(column)
-
-    if len(not_found_columns) > 0:
-      print(f"\n\nMandatory columns {not_found_columns} not found on source file.\n\n")
     
     return not_found_columns
   
@@ -29,11 +26,15 @@ class FileValidator:
     """
     type_map = {
       "text": "object",
+      "string": "object",
       "object": "object",
       "date": "datetime64[ns]",
       "datetime": "datetime64[ns]",
       "int": "Int64",
-      "float": "float64"
+      "integer": "Int64",
+      "float": "float64",
+      "number": "float64",
+      "boolean": "bool"
     }
     conversion_errors = []
     for column in self.metadata['columns']:
