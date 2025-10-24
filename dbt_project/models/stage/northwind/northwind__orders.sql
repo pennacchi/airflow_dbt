@@ -4,7 +4,8 @@ with source as (
     , 'northwind||' || customer_id as customer_id
     , 'northwind||' || employee_id as employee_id
     , 'northwind||' || ship_via    as ship_via_id
-    , order_date
+    , cast(order_date as date)     as order_date
+    , cast(order_date as datetime) as order_datetime
     , freight
     , required_date
     , shipped_date

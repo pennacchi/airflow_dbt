@@ -4,7 +4,8 @@ with source as (
     , 'erp_new_system||' || customer_id     as customer_id
     , 'erp_new_system||' || salesperson_id  as salesperson_id
     , 'erp_new_system||' || ship_address_id as ship_address_id
-    , sale_date
+    , cast(sale_date as date)                as sale_date
+    , cast(sale_date as datetime)            as sale_datetime
     , freight_value
     , required_delivery_date
     , shipped_date
